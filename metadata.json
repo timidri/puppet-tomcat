@@ -8,6 +8,7 @@
   "summary": "",
   "version": "0.1.0",
   "checksums": {
+<<<<<<< HEAD
     "Modulefile": "d69f2527efd8ff22027e9ed6fbfb76ab",
     "README.md": "a487f9b3aa20ce28cf5dc2158148dee7",
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
@@ -35,10 +36,44 @@
     "manifests/webapp.pp": "7d17526c80ea3079945839b44ade7fbc",
     "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec/spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
+=======
+    "Modulefile": "658e1d010909bdd47baa01a71d01847a",
+    "README.md": "c3088ccbc436d22988ee8b0a6f7430ab",
+    "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
+    "files/tomcat": "69406924160111607661ea282c667c0a",
+    "manifests/cluster.pp": "d6c88225948b17bd92e75dcd4fe24f38",
+    "manifests/cluster/.simple.pp.swp": "3e9fe194755cc79a3d634498cd590647",
+    "manifests/cluster/simple.pp": "dc7ce743a1d3dcb869091c5c922f3ea5",
+    "manifests/context.pp": "43f565279595dbb0b687989e6a905b6f",
+    "manifests/init.pp": "899a551c5fc9a93dba126975cf0fbb26",
+    "manifests/instance.pp": "5defdc860caff339a550c91d2d6122c8",
+    "manifests/jndi.pp": "887da418b4cfd3c704e13e81e728133f",
+    "manifests/jndi/environment.pp": "c5802e262a56954bbb2e835934aa8549",
+    "manifests/jndi/resource.pp": "d41d8cd98f00b204e9800998ecf8427e",
+    "manifests/jndi/resourcelink.pp": "d41d8cd98f00b204e9800998ecf8427e",
+    "manifests/lib.pp": "e605295aca4b7eb180df0a73de47067b",
+    "manifests/manager.pp": "98f6b09e911baad373769fbecc858c50",
+    "manifests/params.pp": "7af9c6555071489a114efb964f6647b0",
+    "manifests/realm.pp": "0a1230707d463ec0de5444d854a93b06",
+    "manifests/realm/ldap.pp": "83fdfbe032ed3e93be76a1b5758cb79e",
+    "manifests/realm/userdatabase.pp": "74cfde4a842fb1e9ac52e576a9f70877",
+    "manifests/service.pp": "d7ba21ed21db1fb8af64d3f33b536fea",
+    "manifests/valve.pp": "74f6b4abe9d2b773a1b8e3039b6ee86d",
+    "manifests/webapp.pp": "686d42fbb9233b01a9259b1dd2048a92",
+    "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
+    "spec/spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
+    "templates/catalina_opts.sh.erb": "ac681b97523eac19a2c1c231111f62bc",
+    "templates/cluster.xml.erb": "e137fa33dd49078792f1e3cad1de06f6",
+    "templates/server-jndi-environmentvars.xml.erb": "2764f8c320c9b8be3c8b378e46c28fe3",
+    "templates/server-jndi-resourcelinks.xml.erb": "50a19ce0a4dd1c404984751e908eaebb",
+    "templates/server-jndi-resources.xml.erb": "2f74fe6cba7ed7d5cfe89d7d796afac8",
+    "templates/server.xml.erb": "f50bf3e8795c35b4a46d48c1201001fb",
+>>>>>>> Adding first real code
     "tests/init.pp": "551af72a1a5aca74ceae76cb7a238044"
   },
   "dependencies": [
     {
+<<<<<<< HEAD
       "name": "proteon/java",
       "version_requirement": "\u003e\u003d0.1"
     },
@@ -49,6 +84,10 @@
     {
       "name": "proteon/profile",
       "version_requirement": "\u003e\u003d0.1.0"
+=======
+      "name": "ripienaar/concat",
+      "version_requirement": "\u003e\u003d0.2.0"
+>>>>>>> Adding first real code
     }
   ]
 }

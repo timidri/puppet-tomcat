@@ -17,4 +17,8 @@ dependency 'ripienaar/concat', '>=0.2.0'
 # Librarian-puppet does not appear to like dependencies which are not in (a)
 # forge. You can find this dependency at:
 # https://github.com/Proteon/puppet-profile
+<<<<<<< HEAD
 # dependency 'proteon/profile', '>=0.1.0
+=======
+# dependency 'proteon/profile_d', '>=0.1.0
+>>>>>>> Adding first real code
