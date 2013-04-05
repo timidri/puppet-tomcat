@@ -59,8 +59,9 @@ define tomcat::instance (
     $max_perm      = '384m',
     $unpack_wars   = true,
     $auto_deploy   = true,
-    $ensure        = present,
-) {
+    $ensure        = present,) {
+    include tomcat
+
     $instance_home = "${tomcat::params::home}/${name}"
 
     tomcat::service { $name: }
@@ -175,6 +176,8 @@ define tomcat::instance (
 
     file { "${instance_home}/tomcat/lib/log4j.properties": content => template('tomcat/log4j.properties.erb'), }
 
+    file { "${instance_home}/tomcat/bin/setenv.sh": content => template('tomcat/setenv.sh.erb'), }
+
     user { $name:
         home     => $instance_home,
         password => '!',
@@ -194,14 +197,6 @@ define tomcat::instance (
         group   => $name,
         content => template("tomcat/server.xml.erb"),
         require => File["${instance_home}/tomcat"],
-        notify  => Tomcat::Service[$name],
-    }
-
-    profile_d::script { "${name}_opts.sh":
-        ensure  => $ensure,
-        content => "export CATALINA_OPTS=\"-Xmx${max_heap} -Xms${min_heap} -XX:PermSize=${min_perm} -XX:MaxPermSize=${max_perm}\"",
-        user    => $name,
-        require => File[$instance_home],
         notify  => Tomcat::Service[$name],
     }
 }
