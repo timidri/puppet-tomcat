@@ -1,4 +1,52 @@
+# This resource installs a tomcat instance.
+#
+# === Parameters
+#
+# Document parameters here.
+#
+# [*ip_address*]    The ipv4 /ipv6 ipadress the http connector should use. Defaults to all.
+# [*http_port*]     The port the http connector should use. Defaults to 8080.
+# [*https_port*]    The port the https connector should use. Defaults to 8443.
+# [*ajp_port*]      The port the ajp connector should use. Defaults to 8009.
+# [*shutdown_port*] The port the shutdown command can be issued to. Defaults to 8005.
+# [*scheme*]        The scheme the http connector should use. Defaults to http.
+# [*apr_enabled*]   Enable apr. Defaults to true.
+# [*max_heap*]      Max heap space to use. Defaults to 1024m.
+# [*min_heap*]      Min heap space to use. Defaults to 1024m.
+# [*min_perm*]      Min permgen space. Defaults to 384m.
+# [*max_perm*]      Max permgen space. Defaults to 384m.
+# [*unpack_wars*]   Unpack wars. Defaults to true.
+# [*auto_deploy*]   Auto deploy wars. Defaults to true.
+#
+# === Variables
+#
+# === Examples
+#
+#  tomcat::instance { 'instance_1':
+#   ip_address    = 'fe80::1%lo0',
+#   http_port     = '8081',
+#   https_port    = '8444',
+#   ajp_port      = '8010',
+#   shutdown_port = '8006',
+#   scheme        = 'http',
+#   apr_enabled   = true,
+#   max_heap      = '2048m',
+#   min_heap      = '1024m',
+#   min_perm      = '384m',
+#   max_perm      = '512m',
+#   unpack_wars   = false,
+#   auto_deploy   = true,
+#
+# === Authors
+#
+# Sander Bilo <sander@proteon.nl>
+#
+# === Copyright
+#
+# Copyright 2013 Proteon.
+#
 define tomcat::instance (
+    $ip_address    = undef,
     $http_port     = '8080',
     $https_port    = '8443',
     $ajp_port      = '8009',
@@ -8,10 +56,22 @@ define tomcat::instance (
     $max_heap      = '1024m',
     $min_heap      = '1024m',
     $min_perm      = '384m',
-    $max_perm      = '384m',) {
+    $max_perm      = '384m',
+    $unpack_wars   = true,
+    $auto_deploy   = true,
+    $ensure        = present,
+) {
     $instance_home = "${tomcat::params::home}/${name}"
 
     tomcat::service { $name: }
+
+    tomcat::jndi { $name: }
+
+    tomcat::realm { $name: }
+
+    tomcat::valve { $name: }
+
+    tomcat::cluster { $name: }
 
     file { [
         $instance_home,
@@ -31,64 +91,100 @@ define tomcat::instance (
         require => User[$name],
     }
 
-    file { "${instance_home}/tomcat/bin/bootstrap.jar": target => "/usr/share/tomcat${tomcat::version}/bin/bootstrap.jar", }
+    file { "${instance_home}/tomcat/bin/bootstrap.jar":
+        ensure => link,
+        target => "/usr/share/tomcat${tomcat::version}/bin/bootstrap.jar",
+    }
 
-    file { "${instance_home}/tomcat/bin/catalina.sh": target => "/usr/share/tomcat${tomcat::version}/bin/catalina.sh", }
+    file { "${instance_home}/tomcat/bin/catalina.sh":
+        ensure => link,
+        target => "/usr/share/tomcat${tomcat::version}/bin/catalina.sh",
+    }
 
-    file { "${instance_home}/tomcat/bin/digest.sh": target => "/usr/share/tomcat${tomcat::version}/bin/digest.sh", }
+    file { "${instance_home}/tomcat/bin/digest.sh":
+        ensure => link,
+        target => "/usr/share/tomcat${tomcat::version}/bin/digest.sh",
+    }
 
-    file { "${instance_home}/tomcat/bin/setclasspath.sh": target => "/usr/share/tomcat${tomcat::version}/bin/setclasspath.sh", }
+    file { "${instance_home}/tomcat/bin/setclasspath.sh":
+        ensure => link,
+        target => "/usr/share/tomcat${tomcat::version}/bin/setclasspath.sh",
+    }
 
-    file { "${instance_home}/tomcat/bin/shutdown.sh": target => "/usr/share/tomcat${tomcat::version}/bin/shutdown.sh", }
+    file { "${instance_home}/tomcat/bin/shutdown.sh":
+        ensure => link,
+        target => "/usr/share/tomcat${tomcat::version}/bin/shutdown.sh",
+    }
 
-    file { "${instance_home}/tomcat/bin/startup.sh": target => "/usr/share/tomcat${tomcat::version}/bin/startup.sh", }
+    file { "${instance_home}/tomcat/bin/startup.sh":
+        ensure => link,
+        target => "/usr/share/tomcat${tomcat::version}/bin/startup.sh",
+    }
 
-    file { "${instance_home}/tomcat/bin/tool-wrapper.sh": target => "/usr/share/tomcat${tomcat::version}/bin/tool-wrapper.sh", }
+    file { "${instance_home}/tomcat/bin/tool-wrapper.sh":
+        ensure => link,
+        target => "/usr/share/tomcat${tomcat::version}/bin/tool-wrapper.sh",
+    }
 
-    file { "${instance_home}/tomcat/bin/version.sh": target => "/usr/share/tomcat${tomcat::version}/bin/version.sh", }
+    file { "${instance_home}/tomcat/bin/version.sh":
+        ensure => link,
+        target => "/usr/share/tomcat${tomcat::version}/bin/version.sh",
+    }
 
-    file { "${instance_home}/tomcat/conf/catalina.properties": target => "/etc/tomcat${tomcat::version}/catalina.properties", }
+    file { "${instance_home}/tomcat/conf/catalina.properties":
+        ensure => link,
+        target => "/etc/tomcat${tomcat::version}/catalina.properties",
+    }
 
-    file { "${instance_home}/tomcat/conf/context.xml": target => "/etc/tomcat${tomcat::version}/context.xml", }
+    file { "${instance_home}/tomcat/conf/context.xml":
+        ensure => link,
+        target => "/etc/tomcat${tomcat::version}/context.xml",
+    }
 
-    file { "${instance_home}/tomcat/conf/logging.properties": target => "/etc/tomcat${tomcat::version}/logging.properties", }
+    file { "${instance_home}/tomcat/conf/logging.properties":
+        ensure => link,
+        target => "/etc/tomcat${tomcat::version}/logging.properties",
+    }
 
-    file { "${instance_home}/tomcat/conf/policy.d": target => "/etc/tomcat${tomcat::version}/policy.d", }
+    file { "${instance_home}/tomcat/conf/policy.d":
+        ensure => link,
+        target => "/etc/tomcat${tomcat::version}/policy.d",
+    }
 
-    file { "${instance_home}/tomcat/conf/tomcat-users.xml": target => "/etc/tomcat${tomcat::version}/tomcat-users.xml", }
+    file { "${instance_home}/tomcat/conf/tomcat-users.xml":
+        ensure => link,
+        target => "/etc/tomcat${tomcat::version}/tomcat-users.xml",
+    }
 
-    file { "${instance_home}/tomcat/conf/web.xml": target => "/etc/tomcat${tomcat::version}/web.xml", }
+    file { "${instance_home}/tomcat/conf/web.xml":
+        ensure => link,
+        target => "/etc/tomcat${tomcat::version}/web.xml",
+    }
+
+    file { "${instance_home}/tomcat/lib/log4j.jar":
+        ensure => link,
+        target => "/usr/share/java/log4j-1.2.jar",
+        notify => Tomcat::Service[$name],
+    }
+
+    file { "${instance_home}/tomcat/lib/commons-logging.jar":
+        ensure => link,
+        target => "/usr/share/java/commons-logging.jar",
+        notify => Tomcat::Service[$name],
+    }
+
+    file { "${instance_home}/tomcat/lib/log4j.properties": content => template('tomcat/log4j.properties.erb'), }
 
     user { $name:
         home     => $instance_home,
         password => '!',
-        ensure   => present,
+        ensure   => $ensure,
         comment  => "${name} instance user",
         require  => File[$tomcat::params::home],
     }
 
-    class { 'tomcat::jndi':
-        instance => $name,
-        require  => File["${instance_home}/tomcat/conf"],
-    }
-
-    class { 'tomcat::realm':
-        instance => $name,
-        require  => File["${instance_home}/tomcat/conf"],
-    }
-
-    class { 'tomcat::valve':
-        instance => $name,
-        require  => File["${instance_home}/tomcat/conf"],
-    }
-
-    class { 'tomcat::cluster':
-        instance => $name,
-        require  => File["${instance_home}/tomcat/conf"],
-    }
-
     file { "/etc/tomcat.d/${name}":
-        ensure  => present,
+        ensure  => $ensure,
         content => "",
         require => User[$name],
     }
@@ -98,11 +194,14 @@ define tomcat::instance (
         group   => $name,
         content => template("tomcat/server.xml.erb"),
         require => File["${instance_home}/tomcat"],
+        notify  => Tomcat::Service[$name],
     }
 
-    profile_d::script { 'catalina_opts.sh':
-        ensure  => present,
+    profile_d::script { "${name}_opts.sh":
+        ensure  => $ensure,
         content => "export CATALINA_OPTS=\"-Xmx${max_heap} -Xms${min_heap} -XX:PermSize=${min_perm} -XX:MaxPermSize=${max_perm}\"",
         user    => $name,
+        require => File[$instance_home],
+        notify  => Tomcat::Service[$name],
     }
 }

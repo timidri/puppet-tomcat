@@ -44,7 +44,7 @@
 
 	<Service name="Catalina">
 
-		<Connector port="<%= http_port %>" protocol="HTTP/1.1"
+		<Connector <% if @ip_address %>address="<%= ip_address %>" <% end -%>port="<%= http_port %>" protocol="HTTP/1.1"
 			connectionTimeout="20000" URIEncoding="UTF-8" scheme="<%= scheme %>"
 			redirectPort="<%= https_port %>" />
 
@@ -56,8 +56,7 @@
 
       		&engine-realms;
 
-			<Host name="localhost" appBase="webapps" unpackWARs="true"
-				autoDeploy="true" xmlValidation="false" xmlNamespaceAware="false">
+			<Host name="localhost" appBase="webapps" unpackWARs="<%= unpack_wars %>" autoDeploy="<%= auto_deploy %>">
 
 				&host-cluster;
 

@@ -1,17 +1,30 @@
-class tomcat::jndi ($instance) {
+# This resource installs default jndi resources in an instance, don't use it directly.
+#
+# === Authors
+#
+# Sander Bilo <sander@proteon.nl>
+#
+# === Copyright
+#
+# Copyright 2013 Proteon.
+#
+define tomcat::jndi ($instance = $name) {
     concat { "${tomcat::params::home}/${instance}/tomcat/conf/server-jndi-resources.xml":
         owner => $instance,
         group => $instance,
+        require  => File["${tomcat::params::home}/${instance}/tomcat/conf"],
     }
 
     concat { "${tomcat::params::home}/$instance/tomcat/conf/server-jndi-resourcelinks.xml":
         owner => $instance,
         group => $instance,
+        require  => File["${tomcat::params::home}/${instance}/tomcat/conf"],
     }
 
     concat { "${tomcat::params::home}/$instance/tomcat/conf/server-jndi-environmentvars.xml":
         owner => $instance,
         group => $instance,
+        require  => File["${tomcat::params::home}/${instance}/tomcat/conf"],
     }
 
     concat::fragment { "Adding Default JNDI Server Resources content for ${instance}":

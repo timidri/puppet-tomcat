@@ -1,11 +1,13 @@
 #!/bin/bash
-#       ############ THESE SETTINGS ARE REQUIRED ############
 #
-# DO NOT EDIT! Managed by puppet
+# === Authors
 #
-# created by Sander Bilo 2011-05
+# Sander Bilo <sander@proteon.nl>
 #
-########################################################################
+# === Copyright
+#
+# Copyright 2013 Proteon.
+#
 ### BEGIN INIT INFO
 # Provides:          tomcat
 # Required-Start:    $syslog
@@ -73,7 +75,7 @@ stop() {
         if [ "$PID" != "" ]; then
 		info "Stopping Tomcat [$tomcat] @ PID: $PID "
                 su - $tomcat -c "/opt/tomcat/sites/$tomcat/tomcat/bin/shutdown.sh > /dev/null 2>&1" 
-                sleep 10
+                sleep $timeout
                 PID=`ps ax | grep "org.apache.catalina.startup.Bootstrap start" |grep sites/$tomcat/tomcat | awk '{printf $1}'`
                 if [ "$PID" != "" ]; then
                         warn "The server doesn't seem to stop, killing it"
@@ -136,7 +138,8 @@ case $1 in
 		die "I don't know what instance to start, please be more specific."
 	fi
 ;;
-        stop)
+    stop)
+    timeout="5"
         if [[  "${2}" =~ "--instance=" ]]; then
                 tomcat="${2}"
                 tomcat="${tomcat##--instance=}"
@@ -156,7 +159,7 @@ case $1 in
 	fi
 ;;
 	restart)
-	timeout="20"
+	timeout="5"
       	if [[  "${2}" =~ "--instance=" ]]; then
                 tomcat="${2}"
                 tomcat="${tomcat##--instance=}"

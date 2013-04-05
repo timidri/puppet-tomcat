@@ -22,10 +22,11 @@
 #
 # Copyright 2013 Proteon.
 #
-class tomcat ($version = 7) {
-    include tomcat::params
+class tomcat ($version = $tomcat::params::version) inherits tomcat::params  {
+    
+    include concat::setup
 
-    package { ["tomcat${version}", 'libtcnative-1']: ensure => held, }
+    package { ["tomcat${version}", 'libtcnative-1', 'liblog4j1.2-java', 'libcommons-logging-java']: ensure => held, }
 
     file { [$tomcat::params::root, $tomcat::params::home, '/etc/tomcat.d/',]:
         ensure => directory,

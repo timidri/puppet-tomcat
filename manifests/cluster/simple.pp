@@ -1,5 +1,5 @@
 define tomcat::cluster::simple (
-  $instance,
+  $instance                  = $name,
   $channel_send_options      = '8',
   $multicast_ip              = '228.0.0.4',
   $multicast_port            = '45564',

@@ -1,12 +1,24 @@
-class tomcat::cluster ($instance) {
+# This resource installs default cluster resources in an instance, don't use it directly.
+#
+# === Authors
+#
+# Sander Bilo <sander@proteon.nl>
+#
+# === Copyright
+#
+# Copyright 2013 Proteon.
+#
+define tomcat::cluster ($instance = $name) {
     concat { "${tomcat::params::home}/${instance}/tomcat/conf/engine-cluster.xml":
         owner => $instance,
         group => $instance,
+        require  => File["${tomcat::params::home}/${instance}/tomcat/conf"],
     }
 
     concat { "${tomcat::params::home}/${instance}/tomcat/conf/host-cluster.xml":
         owner => $instance,
         group => $instance,
+        require  => File["${tomcat::params::home}/${instance}/tomcat/conf"],
     }
 
     concat::fragment { "Adding Default Engine Cluster content for ${instance}":
