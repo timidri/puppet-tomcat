@@ -6,8 +6,6 @@ Puppet code for deploying and configuring Tomcat multi-instance on Debian-like s
 Depencendies:
 
     'ripienaar/concat', '>=0.2.0'
-    'proteon/java', '>=0.1.0' (optional)
-    'proteon/profile_d', '>=0.1.0'
 
 Basic usage
 -------------------------
