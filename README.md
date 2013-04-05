@@ -4,9 +4,10 @@ puppet-tomcat
 Puppet code for deploying and configuring Tomcat multi-instance on Debian-like servers.
 
 Depencendies:
-'ripienaar/concat', '>=0.2.0'dependency 
-'proteon/java', '>=0.1.0' (optional)
-'proteon/profile_d', '>=0.1.0'
+
+    'ripienaar/concat', '>=0.2.0'dependency
+    'proteon/java', '>=0.1.0' (optional)
+    'proteon/profile_d', '>=0.1.0'
 
 Basic usage
 -------------------------
