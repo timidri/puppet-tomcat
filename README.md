@@ -57,3 +57,9 @@ Configure clustering for an instance
 To add simple clustering for instances
 
     tomcat::cluster::simple { ['tomcat_1','tomcat_2','tomcat_3']: }
+
+Configure the tomcat manager and host-manager
+-------------------------
+To add the manager applications for instances
+
+    tomcat::manager { ['tomcat_1','tomcat_2']:}
