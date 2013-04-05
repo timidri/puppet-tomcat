@@ -9,7 +9,7 @@
   "version": "0.1.1",
   "checksums": {
     "Modulefile": "ec7ebe58722aa1413f32a06484e8a359",
-    "README.md": "6257b62478afd6f7f053d526ee3bb2bd",
+    "README.md": "73644b70927d0be8e8b56b31e88c4d7e",
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files/tomcat": "f5f5d1b94dcdc317f79e98ea7b1ada56",
     "manifests/cluster.pp": "8742c915f32c2534543e59db2ae69ac0",
