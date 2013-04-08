@@ -8,9 +8,6 @@
 #
 # === Examples
 #
-#  class { java::params
-#  }
-#
 # === Authors
 #
 # Sander Bilo <sander@proteon.nl>

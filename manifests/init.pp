@@ -1,4 +1,4 @@
-# This class installs tomcat.
+# == Class: Tomcat 
 #
 # === Parameters
 #
