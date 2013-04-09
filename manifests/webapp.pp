@@ -25,9 +25,9 @@
 #
 define tomcat::webapp ($webapp = $name, $instance, $source) {
     file { "${tomcat::params::home}/${instance}/tomcat/webapps/${webapp}.war":
-        source => $source,
-        owner  => $instance,
-        mode   => '0644',
-        notify => Tomcat::Service[$instance],
+        source  => $source,
+        owner   => $instance,
+        mode    => '0644',
+        require => Tomcat::Instance[$instance],
     }
 }
