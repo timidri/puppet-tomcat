@@ -23,19 +23,20 @@
 # === Examples
 #
 #  tomcat::instance { 'instance_1':
-#   ip_address    = 'fe80::1%lo0',
-#   http_port     = '8081',
-#   https_port    = '8444',
-#   ajp_port      = '8010',
-#   shutdown_port = '8006',
-#   scheme        = 'http',
-#   apr_enabled   = true,
-#   max_heap      = '2048m',
-#   min_heap      = '1024m',
-#   min_perm      = '384m',
-#   max_perm      = '512m',
-#   unpack_wars   = false,
-#   auto_deploy   = true,
+#   ip_address    => 'fe80::1%lo0',
+#   http_port     => '8081',
+#   https_port    => '8444',
+#   ajp_port      => '8010',
+#   shutdown_port => '8006',
+#   scheme        => 'http',
+#   apr_enabled   => true,
+#   max_heap      => '2048m',
+#   min_heap      => '1024m',
+#   min_perm      => '384m',
+#   max_perm      => '512m',
+#   unpack_wars   => false,
+#   auto_deploy   => true,
+#  }
 #
 # === Authors
 #
@@ -66,13 +67,13 @@ define tomcat::instance (
 
     tomcat::service { $name: }
 
-    tomcat::jndi { $name: }
+    tomcat::jndi { $name: notify => Tomcat::Service[$name], }
 
-    tomcat::realm { $name: }
+    tomcat::realm { $name: notify => Tomcat::Service[$name], }
 
-    tomcat::valve { $name: }
+    tomcat::valve { $name: notify => Tomcat::Service[$name], }
 
-    tomcat::cluster { $name: }
+    tomcat::cluster { $name: notify => Tomcat::Service[$name], }
 
     file { [
         $instance_home,
@@ -90,76 +91,91 @@ define tomcat::instance (
         owner   => $name,
         group   => $name,
         require => User[$name],
+        notify  => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/bootstrap.jar":
         ensure => link,
         target => "/usr/share/tomcat${tomcat::version}/bin/bootstrap.jar",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/catalina.sh":
         ensure => link,
         target => "/usr/share/tomcat${tomcat::version}/bin/catalina.sh",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/digest.sh":
         ensure => link,
         target => "/usr/share/tomcat${tomcat::version}/bin/digest.sh",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/setclasspath.sh":
         ensure => link,
         target => "/usr/share/tomcat${tomcat::version}/bin/setclasspath.sh",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/shutdown.sh":
         ensure => link,
         target => "/usr/share/tomcat${tomcat::version}/bin/shutdown.sh",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/startup.sh":
         ensure => link,
         target => "/usr/share/tomcat${tomcat::version}/bin/startup.sh",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/tool-wrapper.sh":
         ensure => link,
         target => "/usr/share/tomcat${tomcat::version}/bin/tool-wrapper.sh",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/version.sh":
         ensure => link,
         target => "/usr/share/tomcat${tomcat::version}/bin/version.sh",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/conf/catalina.properties":
         ensure => link,
         target => "/etc/tomcat${tomcat::version}/catalina.properties",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/conf/context.xml":
         ensure => link,
         target => "/etc/tomcat${tomcat::version}/context.xml",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/conf/logging.properties":
         ensure => link,
         target => "/etc/tomcat${tomcat::version}/logging.properties",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/conf/policy.d":
         ensure => link,
         target => "/etc/tomcat${tomcat::version}/policy.d",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/conf/tomcat-users.xml":
         ensure => link,
         target => "/etc/tomcat${tomcat::version}/tomcat-users.xml",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/conf/web.xml":
         ensure => link,
         target => "/etc/tomcat${tomcat::version}/web.xml",
+        notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/lib/log4j.jar":
@@ -174,9 +190,15 @@ define tomcat::instance (
         notify => Tomcat::Service[$name],
     }
 
-    file { "${instance_home}/tomcat/lib/log4j.properties": content => template('tomcat/log4j.properties.erb'), }
+    file { "${instance_home}/tomcat/lib/log4j.properties":
+        content => template('tomcat/log4j.properties.erb'),
+        notify  => Tomcat::Service[$name],
+    }
 
-    file { "${instance_home}/tomcat/bin/setenv.sh": content => template('tomcat/setenv.sh.erb'), }
+    file { "${instance_home}/tomcat/bin/setenv.sh":
+        content => template('tomcat/setenv.sh.erb'),
+        notify  => Tomcat::Service[$name],
+    }
 
     user { $name:
         home     => $instance_home,
@@ -184,12 +206,14 @@ define tomcat::instance (
         ensure   => $ensure,
         comment  => "${name} instance user",
         require  => File[$tomcat::params::home],
+        notify   => Tomcat::Service[$name],
     }
 
     file { "/etc/tomcat.d/${name}":
         ensure  => $ensure,
         content => "",
         require => User[$name],
+        notify  => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/conf/server.xml":

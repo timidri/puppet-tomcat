@@ -8,7 +8,7 @@
   "summary": "",
   "version": "0.1.1",
   "checksums": {
-    "Modulefile": "ec7ebe58722aa1413f32a06484e8a359",
+    "Modulefile": "1178ef9c05f6b29e87bb00cb8d699db1",
     "README.md": "eb7a92e77659d0917ca309af78664123",
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files/tomcat": "f5f5d1b94dcdc317f79e98ea7b1ada56",
@@ -17,7 +17,7 @@
     "manifests/cluster/simple.pp": "55c56722f11b6bafd2f8a977b1f9e857",
     "manifests/context.pp": "2ef818b9eb2450e0154a938b95ccdc43",
     "manifests/init.pp": "ba8458112734ddcdfcfb57b13dab2277",
-    "manifests/instance.pp": "67ec11654a360c73d63b95c6ff96a9f6",
+    "manifests/instance.pp": "26ca1345b79eecbdf56b445ab69b266e",
     "manifests/jndi.pp": "d222acb392f1285dfedd5511b92eb67b",
     "manifests/jndi/database.pp": "008b2b7eaec5b0349d32cc3b02ae1ed2",
     "manifests/jndi/environment.pp": "2bb07e53387e6d427c0d552a2c4c760d",
@@ -29,7 +29,7 @@
     "manifests/realm.pp": "775dfd18e09fe5a3c8522005baf59fa0",
     "manifests/realm/ldap.pp": "83fdfbe032ed3e93be76a1b5758cb79e",
     "manifests/realm/userdatabase.pp": "74cfde4a842fb1e9ac52e576a9f70877",
-    "manifests/service.pp": "37cd6f24016196d4c9cd3c6f53ed8919",
+    "manifests/service.pp": "beec7e8c69e6940eac97e1c12b9e83c9",
     "manifests/valve.pp": "ef630656a71b3ba969cf7e7dd8dd8473",
     "manifests/webapp.pp": "be75bc4fead78bff6b433102422315e7",
     "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
@@ -47,6 +47,10 @@
     {
       "name": "ripienaar/concat",
       "version_requirement": "\u003e\u003d0.2.0"
+    },
+    {
+      "name": "proteon/profile_d",
+      "version_requirement": "\u003e\u003d0.1.1"
     }
   ]
 }
