@@ -9,16 +9,18 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::cluster ($instance = $name) {
+    include concat::setup
+
     concat { "${tomcat::params::home}/${instance}/tomcat/conf/engine-cluster.xml":
-        owner => $instance,
-        group => $instance,
-        require  => File["${tomcat::params::home}/${instance}/tomcat/conf"],
+        owner   => $instance,
+        group   => $instance,
+        require => File["${tomcat::params::home}/${instance}/tomcat/conf"],
     }
 
     concat { "${tomcat::params::home}/${instance}/tomcat/conf/host-cluster.xml":
-        owner => $instance,
-        group => $instance,
-        require  => File["${tomcat::params::home}/${instance}/tomcat/conf"],
+        owner   => $instance,
+        group   => $instance,
+        require => File["${tomcat::params::home}/${instance}/tomcat/conf"],
     }
 
     concat::fragment { "Adding Default Engine Cluster content for ${instance}":

@@ -9,6 +9,8 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::realm ($instance = $name) {
+    include concat::setup
+    
     concat { "${tomcat::params::home}/${instance}/tomcat/conf/engine-realms.xml":
         owner => $instance,
         group => $instance,

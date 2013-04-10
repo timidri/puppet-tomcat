@@ -9,6 +9,8 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::jndi ($instance = $name) {
+    include concat::setup
+    
     concat { "${tomcat::params::home}/${instance}/tomcat/conf/server-jndi-resources.xml":
         owner => $instance,
         group => $instance,

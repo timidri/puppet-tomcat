@@ -21,6 +21,8 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::manager ($instance = $name) {
+    include tomcat
+    
     if (!defined(Package["tomcat${tomcat::version}-admin"])) {
         package { "tomcat${tomcat::version}-admin": ensure => held, }
     }
@@ -29,11 +31,13 @@ define tomcat::manager ($instance = $name) {
         content  => "<Context path=\"/manager\" privileged=\"true\" antiResourceLocking=\"false\" docBase=\"/usr/share/tomcat${tomcat::version}-admin/manager\"></Context>",
         context  => 'manager',
         instance => $instance,
+        require  => Tomcat::Instance[$instance],
     }
 
     tomcat::context { "${name} host-manager.xml":
         content  => "<Context path=\"/host-manager\" privileged=\"true\" antiResourceLocking=\"false\" docBase=\"/usr/share/tomcat${tomcat::version}-admin/host-manager\"></Context>",
         context  => 'host-manager',
         instance => $instance,
+        require  => Tomcat::Instance[$instance],
     }
 }
