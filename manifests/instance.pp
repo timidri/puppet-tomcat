@@ -178,23 +178,6 @@ define tomcat::instance (
         notify => Tomcat::Service[$name],
     }
 
-    file { "${instance_home}/tomcat/lib/log4j.jar":
-        ensure => link,
-        target => "/usr/share/java/log4j-1.2.jar",
-        notify => Tomcat::Service[$name],
-    }
-
-    file { "${instance_home}/tomcat/lib/commons-logging.jar":
-        ensure => link,
-        target => "/usr/share/java/commons-logging.jar",
-        notify => Tomcat::Service[$name],
-    }
-
-    file { "${instance_home}/tomcat/lib/log4j.properties":
-        content => template('tomcat/log4j.properties.erb'),
-        notify  => Tomcat::Service[$name],
-    }
-
     file { "${instance_home}/tomcat/bin/setenv.sh":
         content => template('tomcat/setenv.sh.erb'),
         notify  => Tomcat::Service[$name],
