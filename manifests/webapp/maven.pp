@@ -14,9 +14,13 @@
 #
 # === Examples
 #
-#  tomcat::webapp { 'jira':
-#   instance => 'instance_1',
-#   source   => 'puppet://jira/jira.war',
+#  tomcat::webapp::maven { 'ROOT':
+#   instance   => 'instance_1',
+#   groupid    => 'org.sonatype.nexus',
+#   artifactid => 'nexus-webapp',
+#   version    => '2.3.1-01',
+#  }
+#
 # === Authors
 #
 # Sander Bilo <sander@proteon.nl>
@@ -26,6 +30,8 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::webapp::maven ($webapp = $name, $instance, $groupid, $artifactid, $version) {
+    include maven
+    
     maven { "${tomcat::params::home}/${instance}/tomcat/webapps/${webapp}.war":
         groupid    => $groupid,
         artifactid => $artifactid,
