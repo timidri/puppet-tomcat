@@ -8,7 +8,7 @@
   "summary": "",
   "version": "0.1.1",
   "checksums": {
-    "Modulefile": "122ed26fdf2d740ebc8cb74f9ad22630",
+    "Modulefile": "d613c358d0c842b5c8d21bf9b5d97de7",
     "README.md": "eb7a92e77659d0917ca309af78664123",
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files/tomcat": "f5f5d1b94dcdc317f79e98ea7b1ada56",
@@ -41,7 +41,7 @@
     "templates/context-jndi-environmentvars.xml.erb": "2764f8c320c9b8be3c8b378e46c28fe3",
     "templates/context-jndi-resourcelinks.xml.erb": "0d1ed7fd7c427ec73164bd46c5c0e7ba",
     "templates/context-jndi-resources.xml.erb": "4c7e6ec8217ed9eab38e0545adfd120e",
-    "templates/context.xml.erb": "aecb4eacca1e32de1f83b70ecf835acd",
+    "templates/context.xml.erb": "7b0bc954c89f6f835f503dd972a6d141",
     "templates/log4j.properties.erb": "d661085e1bdcc1c0bada43f14390399b",
     "templates/server.xml.erb": "b51753100b245146f80a7948d8de0bb6",
     "templates/setenv.sh.erb": "6768098beaa3a5192c4e41e648369cc5",
@@ -58,7 +58,7 @@
     },
     {
       "name": "proteon/maven",
-      "version_requirement": "\u003d\u003d1.0.1"
+      "version_requirement": "\u003e\u003d1.0.1"
     }
   ]
 }
