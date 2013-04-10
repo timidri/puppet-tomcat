@@ -148,12 +148,6 @@ define tomcat::instance (
         notify => Tomcat::Service[$name],
     }
 
-    file { "${instance_home}/tomcat/conf/context.xml":
-        ensure => link,
-        target => "/etc/tomcat${tomcat::version}/context.xml",
-        notify => Tomcat::Service[$name],
-    }
-
     file { "${instance_home}/tomcat/conf/logging.properties":
         ensure => link,
         target => "/etc/tomcat${tomcat::version}/logging.properties",
@@ -203,6 +197,14 @@ define tomcat::instance (
         owner   => $name,
         group   => $name,
         content => template("tomcat/server.xml.erb"),
+        require => File["${instance_home}/tomcat"],
+        notify  => Tomcat::Service[$name],
+    }
+    
+    file { "${instance_home}/tomcat/conf/context.xml":
+        owner   => $name,
+        group   => $name,
+        content => template("tomcat/context.xml.erb"),
         require => File["${instance_home}/tomcat"],
         notify  => Tomcat::Service[$name],
     }

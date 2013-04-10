@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE context-xml [
+    <!ENTITY context-jndi-resources SYSTEM "server-jndi-resources.xml">
+	<!ENTITY context-jndi-resourcelinks SYSTEM "server-jndi-resourcelinks.xml">
+    <!ENTITY context-jndi-environmentvars SYSTEM "server-jndi-environmentvars.xml">
+]>
+<Context>
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+	
+	&context-jndi-resources;
+
+    &context-jndi-resourcelinks;
+
+    &context-jndi-environmentvars;
+</Context>
