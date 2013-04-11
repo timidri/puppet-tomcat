@@ -2,8 +2,6 @@
 #
 # === Parameters
 #
-# Document parameters here.
-#
 # [*version*] The tomcat version to install, defaults to 7.
 #
 # === Variables
@@ -22,7 +20,7 @@
 #
 # Copyright 2013 Proteon.
 #
-class tomcat ($version = $tomcat::params::version) inherits tomcat::params  {
+class tomcat ($version = $tomcat::params::version) inherits tomcat::params {
     
     include concat::setup
 
