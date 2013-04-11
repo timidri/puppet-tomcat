@@ -29,7 +29,7 @@
 #
 # Copyright 2013 Proteon.
 #
-define tomcat::lib::maven ($lib = $name, $instance, $groupid, $artifactid, $version) {
+define tomcat::lib::maven ($lib = $name, $instance, $groupid, $artifactid, $version, $repos =[]) {
     include ::maven
     
     maven { "${tomcat::params::home}/${instance}/tomcat/lib/${lib}.jar":
@@ -37,6 +37,7 @@ define tomcat::lib::maven ($lib = $name, $instance, $groupid, $artifactid, $vers
         artifactid => $artifactid,
         version    => $version,
         packaging  => 'jar',
+        repos      => $repos,
         notify     => Tomcat::Instance[$instance],
         require    => Package['maven'],
     }

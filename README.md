@@ -55,6 +55,7 @@ To install a web application (.war) from a maven artifact repository
       groupid    => 'com.yourcompany.project',
       artifactid => 'yourwebapp',
       version    => '1.0.0-SNAPSHOT',
+      repos		  => ['http://maven.yourcompany.com/'],
     }
 
 Configure a jndi record for an instance
