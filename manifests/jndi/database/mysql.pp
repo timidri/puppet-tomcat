@@ -19,7 +19,7 @@ define tomcat::jndi::database::mysql (
             {'username'          => $username },
             {'password'          => $password },
             {'driverClassName'   => $driver },
-            {'url'               => "jdbc:mysql://${host}/${database}?useUnicode=${use_unicode}&characterEncoding=${character_encoding}&useFastDateParsing=${fast_date_parsing}" },
+            {'url'               => "jdbc:mysql://${host}/${database}?useUnicode=${use_unicode}&amp;characterEncoding=${character_encoding}&amp;useFastDateParsing=${fast_date_parsing}" },
             {'max_active'        => $max_active },
             {'max_idle'          => $max_idle },
         ],
