@@ -1,6 +1,7 @@
 define tomcat::jndi::database::hsql (
     $instance,
     $resource_name = $name,
+    $url           = 'jdbc:hsqldb:data',
     $max_active    = '8',
     $max_idle      = '4',
 ) {
@@ -11,7 +12,7 @@ define tomcat::jndi::database::hsql (
             {'username'          => 'sa' },
             {'password'          => '' },
             {'driverClassName'   => 'org.hsqldb.jdbcDriver' },
-            {'url'               => 'jdbc:hsqldb:data' },
+            {'url'               => $url },
             {'max_active'        => $max_active },
             {'max_idle'          => $max_idle },
         ],
