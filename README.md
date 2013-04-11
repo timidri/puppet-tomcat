@@ -40,6 +40,7 @@ A slightly more complicated example
 Install a webapplication
 -------------------------
 To install a web application (.war)
+
     tomcat::webapp { 'ROOT': 
       instance   => 'tomcat_02',
       source	 => 'puppet:///yourapplication/downloadable.war',
@@ -48,6 +49,7 @@ To install a web application (.war)
 Install a webapplication from a maven repository
 -------------------------
 To install a web application (.war) from a maven artifact repository
+    
     tomcat::webapp::maven { 'testapplication': 
       instance   => 'tomcat_01',
       groupid    => 'com.yourcompany.project',
