@@ -36,6 +36,24 @@ A slightly more complicated example
       unpack_wars   = false,
       auto_deploy   = false,
     }
+    
+Install a webapplication
+-------------------------
+To install a web application (.war)
+    tomcat::webapp { 'ROOT': 
+      instance   => 'tomcat_02',
+      source	 => 'puppet:///yourapplication/downloadable.war',
+    }
+
+Install a webapplication from a maven repository
+-------------------------
+To install a web application (.war) from a maven artifact repository
+    tomcat::webapp::maven { 'testapplication': 
+      instance   => 'tomcat_01',
+      groupid    => 'com.yourcompany.project',
+      artifactid => 'yourwebapp',
+      version    => '1.0.0-SNAPSHOT',
+    }
 
 Configure a jndi for an instance
 -------------------------
@@ -47,6 +65,18 @@ To add a database resource
       password    => 'root',
       driver      => 'com.mysql.jdbc.Driver'
       url         => 'jdbc:mysql://localhost:3306/database',
+    }
+    
+To add a mysql database resource 
+
+    tomcat::jndi::database::mysql { 'jdbc/mysqldb':
+      instance    		 => 'tomcat_1',
+      database	  		 => 'database_01',
+      username	  		 => 'dbuser',
+      password	  		 => 'qwerty',
+      host        		 => 'db_server_1',
+      use_unicode 		 => false,
+      character_encoding => 'UTF-8',
     }
     
 To add an environment variable 
