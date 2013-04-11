@@ -57,7 +57,7 @@ To install a web application (.war) from a maven artifact repository
       version    => '1.0.0-SNAPSHOT',
     }
 
-Configure a jndi for an instance
+Configure a jndi record for an instance
 -------------------------
 To add a database resource
 
