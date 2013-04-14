@@ -6,6 +6,8 @@ Puppet code for deploying and configuring Tomcat multi-instance on Debian-like s
 Depencendies:
 
     'ripienaar/concat', '>=0.2.0'
+    'klangrud/profile_d', '>=0.0.1'
+    'proteon/maven', '>=1.0.1'
 
 Basic usage
 -------------------------
@@ -100,3 +102,21 @@ Configure the tomcat manager and host-manager
 To add the manager applications for instances
 
     tomcat::manager { ['tomcat_1','tomcat_2']:}
+
+This will make them available at /manager and /host-manager
+    
+Configure the tomcat docs
+-------------------------
+To add the docs for instances
+
+    tomcat::manager { 'tomcat_1':}
+
+This will make them available at /docs
+
+Configure the tomcat example applications
+-------------------------
+To add the example applications for instances
+
+    tomcat::examples { 'tomcat_1':}
+
+This will make them available at /examples

@@ -1,6 +1,6 @@
 define tomcat::jndi::database (
-    $instance,
-    $resource_name = $name,
+    $instance      = $name,
+    $resource_name = 'jdbc/DefaultPool',
     $resource_type = 'javax.sql.DataSource',
     $auth          = 'Container',
     $username      = undef,

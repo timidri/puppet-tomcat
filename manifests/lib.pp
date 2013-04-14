@@ -5,6 +5,7 @@
 # Document parameters here.
 #
 # [*instance*]   The instance this definition should be installed in (see tomcat::instance).
+# [*lib*]        The name of the output file (.jar).
 # [*source*]     The library to install (a jar file).
 #
 # === Variables
@@ -23,8 +24,8 @@
 #
 # Copyright 2013 Proteon.
 #
-define tomcat::lib ($instance, $source) {
-    file { "${tomcat::params::home}/${instance}/tomcat/lib/${name}":
+define tomcat::lib ($instance, $lib = "${name}.jar", $source) {
+    file { "${tomcat::params::home}/${instance}/tomcat/lib/${lib}":
         source => $source,
         owner  => $instance,
         mode   => '0644',

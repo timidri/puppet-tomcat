@@ -1,9 +1,9 @@
 define tomcat::jndi::database::mysql (
-    $instance,
     $database,
     $username,
     $password,
-    $resource_name      = $name,
+    $resource_name      = 'jdbc/MysqlPool',
+    $instance           = $name,
     $host               = 'localhost',
     $driver             = 'com.mysql.jdbc.Driver',
     $use_unicode        = true,
@@ -25,7 +25,8 @@ define tomcat::jndi::database::mysql (
         ],
     }
     
-    tomcat::lib::maven { 'mysql-connector-java-5.1.24':
+    tomcat::lib::maven { "${instance}:mysql-connector-java-5.1.24":
+        lib        => "mysql-connector-java-5.1.24.jar",
         instance   => $instance,
         groupid    => 'mysql',
         artifactid => 'mysql-connector-java',

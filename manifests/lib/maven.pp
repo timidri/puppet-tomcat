@@ -29,10 +29,10 @@
 #
 # Copyright 2013 Proteon.
 #
-define tomcat::lib::maven ($lib = $name, $instance, $groupid, $artifactid, $version, $repos =[]) {
+define tomcat::lib::maven ($lib = "${name}.jar", $instance, $groupid, $artifactid, $version, $repos =[]) {
     include ::maven
     
-    maven { "${tomcat::params::home}/${instance}/tomcat/lib/${lib}.jar":
+    maven { "${tomcat::params::home}/${instance}/tomcat/lib/${lib}":
         groupid    => $groupid,
         artifactid => $artifactid,
         version    => $version,

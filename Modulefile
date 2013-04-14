@@ -1,5 +1,5 @@
 name 'proteon-tomcat'
-version '0.1.3'
+version '0.1.4'
 
 author 'Sander Bilo'
 license 'Apache'
@@ -8,5 +8,5 @@ source 'git://github.com/Proteon/puppet-tomcat.git'
 summary ''
 description ''
 dependency 'ripienaar/concat', '>=0.2.0'
-dependency 'proteon/profile_d', '>=0.1.1'
+dependency 'klangrud/profile_d', '>=0.0.1'
 dependency 'proteon/maven', '>=1.0.1'

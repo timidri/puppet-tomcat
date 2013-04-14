@@ -1,13 +1,14 @@
 define tomcat::jndi::database::hsql (
-    $instance,
-    $resource_name = $name,
+    $instance      = $name,
+    $resource_name = 'jdbc/HsqlPool',
     $url           = 'jdbc:hsqldb:data',
     $max_active    = '8',
     $max_idle      = '4',
 ) {
-    tomcat::jndi::resource { $name:
-        instance   => $instance,
-        attributes => [
+    tomcat::jndi::resource { $instance:
+        instance      => $instance,
+        resource_name => $resource_name,
+        attributes    => [
             {'auth'              => 'Container' },
             {'username'          => 'sa' },
             {'password'          => '' },
@@ -18,7 +19,8 @@ define tomcat::jndi::database::hsql (
         ],
     }
 
-    tomcat::lib::maven { 'hsqldb-2.2.9':
+    tomcat::lib::maven { "${instance}:hsqldb-2.2.9":
+        lib        => 'hsqldb-2.2.9.jar',
         instance   => $instance,
         groupid    => 'org.hsqldb',
         artifactid => 'hsqldb',
