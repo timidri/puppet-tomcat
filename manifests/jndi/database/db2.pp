@@ -22,7 +22,7 @@ define tomcat::jndi::database::db2 (
             {'username' => $username},
             {'password' => $password},
             {'driverClassName' => $driver},
-            {'url' => "jdbc:db2://${host}:{$port}/${database}:deferPrepares=${defer_prepares};fullyMaterializeInputStreams=${materialize_input_streams};fullyMaterializeLobData=${materialize_lob_data};progresssiveLocators=2;progressiveStreaming=2;"},
+            {'url' => "jdbc:db2://${host}:${port}/${database}:deferPrepares=${defer_prepares};fullyMaterializeInputStreams=${materialize_input_streams};fullyMaterializeLobData=${materialize_lob_data};progresssiveLocators=2;progressiveStreaming=2;"},
             {'max_active' => $max_active},
             {'max_idle' => $max_idle},
         ],

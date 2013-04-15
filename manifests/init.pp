@@ -33,22 +33,22 @@ class tomcat ($version = $tomcat::params::version) inherits tomcat::params {
         mode   => '0644',
     }
 
-    file { "/etc/init.d/tomcat":
-        source => "puppet:///modules/tomcat/tomcat",
+    file { '/etc/init.d/tomcat':
+        source => 'puppet:///modules/tomcat/tomcat',
         owner  => 'root',
         group  => 'root',
     }
 
-    file { "/usr/sbin/tomcat":
+    file { '/usr/sbin/tomcat':
         ensure => link,
-        target => "/etc/init.d/tomcat",
+        target => '/etc/init.d/tomcat',
         owner  => 'root',
         group  => 'root',
     }
 
     service { "tomcat${version}":
-        pattern => "/var/lib/tomcat${version}",
         ensure  => stopped,
+        pattern => "/var/lib/tomcat${version}",
         enable  => false,
         require => Package["tomcat${version}"],
     }

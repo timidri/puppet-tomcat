@@ -26,12 +26,12 @@ define tomcat::valve ($instance = $name) {
     concat::fragment { "Adding Default Engine Valves content for ${instance}":
         target  => "${tomcat::params::home}/${instance}/tomcat/conf/engine-valves.xml",
         order   => 00,
-        content => "<?xml version='1.0' encoding='utf-8'?>",
+        content => '<?xml version=\'1.0\' encoding=\'utf-8\'?>',
     }
 
     concat::fragment { "Adding Default Host Valves content for ${instance}":
         target  => "${tomcat::params::home}/${instance}/tomcat/conf/host-valves.xml",
         order   => 00,
-        content => "<?xml version='1.0' encoding='utf-8'?>",
+        content => '<?xml version=\'1.0\' encoding=\'utf-8\'?>',
     }
 }

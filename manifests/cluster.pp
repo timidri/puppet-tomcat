@@ -26,12 +26,12 @@ define tomcat::cluster ($instance = $name) {
     concat::fragment { "Adding Default Engine Cluster content for ${instance}":
         target  => "${tomcat::params::home}/${instance}/tomcat/conf/engine-cluster.xml",
         order   => 00,
-        content => "<?xml version='1.0' encoding='utf-8'?>",
+        content => '<?xml version=\'1.0\' encoding=\'utf-8\'?>',
     }
 
     concat::fragment { "Adding Default Host Cluster content for ${instance}":
         target  => "${tomcat::params::home}/${instance}/tomcat/conf/host-cluster.xml",
         order   => 00,
-        content => "<?xml version='1.0' encoding='utf-8'?>",
+        content => '<?xml version=\'1.0\' encoding=\'utf-8\'?>',
     }
 }

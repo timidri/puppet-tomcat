@@ -8,24 +8,24 @@
   "summary": "",
   "version": "0.1.5",
   "checksums": {
-    "Modulefile": "15e2842005010bba9bd83b86aeb6c83a",
+    "Modulefile": "5ba98d26b598d0f65cd0d1c22c4d6d4e",
     "README.md": "183ef5c6a3cc0f148ad858e910b126f4",
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files/tomcat": "f5f5d1b94dcdc317f79e98ea7b1ada56",
-    "manifests/cluster.pp": "b64fcee08b8f3756a8ada87cb2044280",
+    "manifests/cluster.pp": "d52c00edfad92f5361cf1f6c88720d1b",
     "manifests/cluster/.simple.pp.swp": "3e9fe194755cc79a3d634498cd590647",
     "manifests/cluster/simple.pp": "55c56722f11b6bafd2f8a977b1f9e857",
     "manifests/context.pp": "33c9c01614b7b211fb2e3de1c33ba3f6",
     "manifests/docs.pp": "9e2416f88772fa7e8871dc90a2047486",
     "manifests/examples.pp": "9c1327a6caad3c62788c3c93a26f3bb6",
-    "manifests/init.pp": "389438ccff3318798e8813f48e9f40d5",
-    "manifests/instance.pp": "8597b58904d5a5e91aaeab0d7548aa26",
-    "manifests/jndi.pp": "bf90e2209b0950d098bb241faa453b94",
+    "manifests/init.pp": "c0f35521df79656631b03aeacef6a2e6",
+    "manifests/instance.pp": "b7ad0113828c26f62278d03ebcc9bedd",
+    "manifests/jndi.pp": "21e29d9eb3047b0da414cd8c475ac584",
     "manifests/jndi/database.pp": "8abcc2e5cc38cc38b46aecd173444772",
-    "manifests/jndi/database/db2.pp": "68e6aabdd8cd3c1df9dd74392dc837e7",
+    "manifests/jndi/database/db2.pp": "78a0b625a54d529ddcc848a150a279f2",
     "manifests/jndi/database/hsql.pp": "bbdb2ca71e930f628f0c25efcd3bf508",
-    "manifests/jndi/database/mysql.pp": "91bda3f1821259df6e25d7a8705242ec",
-    "manifests/jndi/environment.pp": "08e96418e72c26948c3b73b1a5f5691b",
+    "manifests/jndi/database/mysql.pp": "f8dd882b5000f873f0cf31a7dddcae78",
+    "manifests/jndi/environment.pp": "ad253654e56b01992b6de603ad03f101",
     "manifests/jndi/resource.pp": "ac9a34bf8237c9651c476655cda17e4c",
     "manifests/jndi/resourcelink.pp": "5b18de7cb5c569cda0d2fb5632ffc26b",
     "manifests/lib.pp": "0873abde02c4d2f213c49e765bb99dcb",
@@ -34,9 +34,9 @@
     "manifests/params.pp": "c397374abd7e4f6af07ff43aea7e54e6",
     "manifests/realm.pp": "c74dd9270d455f7dffeb55e7ea9a3ecb",
     "manifests/realm/ldap.pp": "83fdfbe032ed3e93be76a1b5758cb79e",
-    "manifests/realm/userdatabase.pp": "74cfde4a842fb1e9ac52e576a9f70877",
-    "manifests/service.pp": "beec7e8c69e6940eac97e1c12b9e83c9",
-    "manifests/valve.pp": "86d0e81387a38f8928e7f40efd7a9999",
+    "manifests/realm/userdatabase.pp": "aa2fd6172430b97ccac642f52a9d3305",
+    "manifests/service.pp": "91daf75d6ab9bce886910ea0d1839265",
+    "manifests/valve.pp": "38da7e287803ee80a3e3a370421e7af2",
     "manifests/webapp.pp": "a8de158ebc8d203b1535b14d6de014c8",
     "manifests/webapp/maven.pp": "e4dfb070bb8af085ce7da443295e84b8",
     "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
@@ -59,10 +59,6 @@
     {
       "name": "klangrud/profile_d",
       "version_requirement": "\u003e\u003d0.0.1"
-    },
-    {
-      "name": "proteon/maven",
-      "version_requirement": "\u003e\u003d1.0.1"
     }
   ]
 }

@@ -85,7 +85,7 @@ define tomcat::jndi::database::mysql (
     }
 
     tomcat::lib::maven { "${instance}:mysql-connector-java-5.1.24":
-        lib        => "mysql-connector-java-5.1.24.jar",
+        lib        => 'mysql-connector-java-5.1.24.jar',
         instance   => $instance,
         groupid    => 'mysql',
         artifactid => 'mysql-connector-java',
@@ -94,7 +94,7 @@ define tomcat::jndi::database::mysql (
     
     if ('org.apache.tomcat.jdbc' in $factory) {
         tomcat::lib::maven { "${instance}:tomcat-jdbc-7.0.19":
-            lib        => "tomcat-jdbc-7.0.19.jar",
+            lib        => 'tomcat-jdbc-7.0.19.jar',
             instance   => $instance,
             groupid    => 'org.apache.tomcat',
             artifactid => 'tomcat-jdbc',

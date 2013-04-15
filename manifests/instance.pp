@@ -178,9 +178,9 @@ define tomcat::instance (
     }
 
     user { $name:
+        ensure   => $ensure,
         home     => $instance_home,
         password => '!',
-        ensure   => $ensure,
         comment  => "${name} instance user",
         require  => File[$tomcat::params::home],
         notify   => Tomcat::Service[$name],
@@ -188,7 +188,7 @@ define tomcat::instance (
 
     file { "/etc/tomcat.d/${name}":
         ensure  => $ensure,
-        content => "",
+        content => '',
         require => User[$name],
         notify  => Tomcat::Service[$name],
     }
@@ -196,7 +196,7 @@ define tomcat::instance (
     file { "${instance_home}/tomcat/conf/server.xml":
         owner   => $name,
         group   => $name,
-        content => template("tomcat/server.xml.erb"),
+        content => template('tomcat/server.xml.erb'),
         require => File["${instance_home}/tomcat"],
         notify  => Tomcat::Service[$name],
     }
@@ -204,7 +204,7 @@ define tomcat::instance (
     file { "${instance_home}/tomcat/conf/context.xml":
         owner   => $name,
         group   => $name,
-        content => template("tomcat/context.xml.erb"),
+        content => template('tomcat/context.xml.erb'),
         require => File["${instance_home}/tomcat"],
         notify  => Tomcat::Service[$name],
     }
