@@ -9,4 +9,8 @@ summary ''
 description ''
 dependency 'ripienaar/concat', '>=0.2.0'
 dependency 'klangrud/profile_d', '>=0.0.1'
-dependency 'proteon/maven', '>=1.0.1'
+
+# Librarian-puppet does not appear to like dependencies which are not in (a)
+# forge. You can find these dependencies at:
+# https://github.com/Proteon/puppet-*
+#dependency 'proteon/maven', '>=1.0.1'
