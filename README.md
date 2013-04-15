@@ -60,7 +60,7 @@ To install a web application (.war) from a maven artifact repository
       groupid    => 'com.yourcompany.project',
       artifactid => 'yourwebapp',
       version    => '1.0.0-SNAPSHOT',
-      repos		  => ['http://maven.yourcompany.com/'],
+      repos	 => ['http://maven.yourcompany.com/'],
     }
 
 Configure a jndi record for an instance
@@ -84,7 +84,7 @@ To add a mysql database resource
       password	  		 => 'qwerty',
       host        		 => 'db_server_1',
       use_unicode 		 => false,
-      character_encoding => 'UTF-8',
+      character_encoding 	 => 'UTF-8',
     }
     
 To add an environment variable 
