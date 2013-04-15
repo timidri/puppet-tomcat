@@ -20,19 +20,26 @@
 # [*initial_size*] Initial pool size (defaults to 4).
 # [*max_active*] Max active connections (defaults to 8).
 # [*max_idle*] Minimal active connections (defaults to 4).
+# [*factory*] Connection factory to use (defaults to 'org.apache.tomcat.jdbc.pool.DataSourceFactory'),
+# [*jmx_enabled*] Enable jmx for the connection pool (defaults to true),
 #
 # === Variables
 #
 # === Examples
 #
-#  class { java:
-#    location        => 'http://apt.your-company-repository.com/ubuntu/',
-#    package         => 'sun-java6-jdk',
-#    repository_name => 'your-company-repository',
-#    release         => $::lsbdistcodename,
-#    repos           => 'main',
-#    key             => '1234567',
-#    key_server      => 'keyserver.ubuntu.com',
+#  tomcat::jndi::database::mysql { 'tomcat_01':
+#   database        => 'my_mysql_db',
+#   username        => 'my_user',
+#   password        => 'my_passw0rd',
+#   resource_name   => 'jdbc/myMysqlDb',
+#   host            => 'localhost',
+#   use_unicode     => false,
+#   character_encoding => 'latin-1',
+#   fast_date_parsing  => true,
+#   initial_size    => 5,
+#   max_active      => 99,
+#   max_idle        => 1,
+#   jmx_enabled     => false,
 #  }
 #
 # === Authors
@@ -85,12 +92,14 @@ define tomcat::jndi::database::mysql (
         version    => '5.1.24',
     }
     
-    tomcat::lib::maven { "${instance}:tomcat-jdbc-7.0.19":
-        lib        => "tomcat-jdbc-7.0.19.jar",
-        instance   => $instance,
-        groupid    => 'org.apache.tomcat',
-        artifactid => 'tomcat-jdbc',
-        version    => '7.0.19',
+    if ('org.apache.tomcat.jdbc' in $factory) {
+        tomcat::lib::maven { "${instance}:tomcat-jdbc-7.0.19":
+            lib        => "tomcat-jdbc-7.0.19.jar",
+            instance   => $instance,
+            groupid    => 'org.apache.tomcat',
+            artifactid => 'tomcat-jdbc',
+            version    => '7.0.19',
+        }
     }
 
     if (!defined(Mysql::Db[$name]) and $host == 'localhost') {

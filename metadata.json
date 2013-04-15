@@ -24,7 +24,7 @@
     "manifests/jndi/database.pp": "8abcc2e5cc38cc38b46aecd173444772",
     "manifests/jndi/database/db2.pp": "68e6aabdd8cd3c1df9dd74392dc837e7",
     "manifests/jndi/database/hsql.pp": "bbdb2ca71e930f628f0c25efcd3bf508",
-    "manifests/jndi/database/mysql.pp": "6338ee5de909bc4b208953bcbbc0cbd2",
+    "manifests/jndi/database/mysql.pp": "91bda3f1821259df6e25d7a8705242ec",
     "manifests/jndi/environment.pp": "08e96418e72c26948c3b73b1a5f5691b",
     "manifests/jndi/resource.pp": "ac9a34bf8237c9651c476655cda17e4c",
     "manifests/jndi/resourcelink.pp": "5b18de7cb5c569cda0d2fb5632ffc26b",
