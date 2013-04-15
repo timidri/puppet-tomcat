@@ -42,7 +42,7 @@ A slightly more complicated example
       auto_deploy   = false,
     }
     
-Install a webapplication
+Install a web application
 -------------------------
 To install a web application (.war)
 
@@ -51,7 +51,7 @@ To install a web application (.war)
       source	 => 'puppet:///yourapplication/downloadable.war',
     }
 
-Install a webapplication from a maven repository
+Install a web application from a maven repository
 -------------------------
 To install a web application (.war) from a maven artifact repository
     
@@ -112,7 +112,7 @@ Configure the tomcat docs
 -------------------------
 To add the docs for instances
 
-    tomcat::manager { 'tomcat_1':}
+    tomcat::docs { 'tomcat_1':}
 
 This will make them available at /docs
 
