@@ -27,19 +27,19 @@ To create an instance
 A slightly more complicated example
 
     tomcat::instance { 'tomcat_2':
-      ip_address    = undef,
-      http_port     = '18080',
-      https_port    = '18443',
-      ajp_port      = '18009',
-      shutdown_port = '18005',
-      scheme        = 'http',
-      apr_enabled   = false,
-      max_heap      = '1024m',
-      min_heap      = '2048m',
-      min_perm      = '384m',
-      max_perm      = '512m',
-      unpack_wars   = false,
-      auto_deploy   = false,
+      ip_address    => undef,
+      http_port     => '18080',
+      https_port    => '18443',
+      ajp_port      => '18009',
+      shutdown_port => '18005',
+      scheme        => 'http',
+      apr_enabled   => false,
+      max_heap      => '1024m',
+      min_heap      => '2048m',
+      min_perm      => '384m',
+      max_perm      => '512m',
+      unpack_wars   => false,
+      auto_deploy   => false,
     }
     
 Install a web application
