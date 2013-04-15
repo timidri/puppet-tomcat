@@ -1,5 +1,5 @@
 name 'proteon-tomcat'
-version '0.1.4'
+version '0.1.5'
 
 author 'Sander Bilo'
 license 'Apache'

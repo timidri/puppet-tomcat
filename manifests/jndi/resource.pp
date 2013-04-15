@@ -1,7 +1,7 @@
 define tomcat::jndi::resource (
-    $instance,
+    $resource_name,
+    $instance      = $name,
     $context       = undef,
-    $resource_name = $name,
     $resource_type = 'javax.sql.DataSource',
     $attributes    = [],
 ) {

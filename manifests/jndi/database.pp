@@ -9,6 +9,7 @@ define tomcat::jndi::database (
     $url           = undef,
     $max_active    = undef,
     $max_idle      = undef,
+    $factory       = undef,
 ) {
     tomcat::jndi::resource { $name:
         instance   => $instance,
@@ -20,6 +21,7 @@ define tomcat::jndi::database (
             {'url'               => $url },
             {'max_active'        => $max_active },
             {'max_idle'          => $max_idle },
+            {'factory'           => $factory },
         ],
     }
 }

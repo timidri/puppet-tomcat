@@ -8,6 +8,9 @@ Depencendies:
     'ripienaar/concat', '>=0.2.0'
     'klangrud/profile_d', '>=0.0.1'
     'proteon/maven', '>=1.0.1'
+    
+Optional:
+	'puppetlabs/mysql',  '>=0.6.1' # When using jndi mysql database resources
 
 Basic usage
 -------------------------
