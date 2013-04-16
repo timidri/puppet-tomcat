@@ -9,7 +9,7 @@
   "version": "0.1.5",
   "checksums": {
     "Modulefile": "5ba98d26b598d0f65cd0d1c22c4d6d4e",
-    "README.md": "183ef5c6a3cc0f148ad858e910b126f4",
+    "README.md": "0fec0aa11bcddb0b5eb7c5423cb08fbc",
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files/tomcat": "f5f5d1b94dcdc317f79e98ea7b1ada56",
     "manifests/cluster.pp": "d52c00edfad92f5361cf1f6c88720d1b",
@@ -19,7 +19,7 @@
     "manifests/docs.pp": "9e2416f88772fa7e8871dc90a2047486",
     "manifests/examples.pp": "9c1327a6caad3c62788c3c93a26f3bb6",
     "manifests/init.pp": "c0f35521df79656631b03aeacef6a2e6",
-    "manifests/instance.pp": "b7ad0113828c26f62278d03ebcc9bedd",
+    "manifests/instance.pp": "4d1aeb9d916d87264f2abcc27ade73bc",
     "manifests/jndi.pp": "21e29d9eb3047b0da414cd8c475ac584",
     "manifests/jndi/database.pp": "8abcc2e5cc38cc38b46aecd173444772",
     "manifests/jndi/database/db2.pp": "78a0b625a54d529ddcc848a150a279f2",

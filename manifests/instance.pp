@@ -7,7 +7,6 @@
 # [*ip_address*]    The ipv4 /ipv6 ipadress the http connector should use. Defaults to all.
 # [*http_port*]     The port the http connector should use. Defaults to 8080.
 # [*https_port*]    The port the https connector should use. Defaults to 8443.
-# [*ajp_port*]      The port the ajp connector should use. Defaults to 8009.
 # [*shutdown_port*] The port the shutdown command can be issued to. Defaults to 8005.
 # [*scheme*]        The scheme the http connector should use. Defaults to http.
 # [*apr_enabled*]   Enable apr. Defaults to true.
@@ -26,7 +25,6 @@
 #   ip_address    => 'fe80::1%lo0',
 #   http_port     => '8081',
 #   https_port    => '8444',
-#   ajp_port      => '8010',
 #   shutdown_port => '8006',
 #   scheme        => 'http',
 #   apr_enabled   => true,
@@ -50,7 +48,6 @@ define tomcat::instance (
     $ip_address    = undef,
     $http_port     = '8080',
     $https_port    = '8443',
-    $ajp_port      = '8009',
     $shutdown_port = '8005',
     $scheme        = 'http',
     $apr_enabled   = true,
