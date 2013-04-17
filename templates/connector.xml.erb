@@ -1,0 +1,1 @@
+<Connector port="<%= port %>" URIEncoding="<%= uri_encoding %>" <% attributes.each do |hash| -%><% hash.keys.each do |key| -%><%= key %>="<%= hash[key] %>" <% end -%><% end -%>/>

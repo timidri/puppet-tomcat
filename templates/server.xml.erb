@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE server-xml [
+	<!ENTITY connectors SYSTEM "connectors.xml">
 	<!ENTITY engine-cluster SYSTEM "engine-cluster.xml">
 	<!ENTITY engine-realms SYSTEM "engine-realms.xml">
 	<!ENTITY engine-valves SYSTEM "engine-valves.xml">
@@ -30,10 +31,8 @@
 	<Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
 
 	<Service name="Catalina">
-
-		<Connector <% if @ip_address %>address="<%= ip_address %>" <% end -%>port="<%= http_port %>" protocol="HTTP/1.1"
-			connectionTimeout="20000" URIEncoding="UTF-8" scheme="<%= scheme %>"
-			redirectPort="<%= https_port %>" />
+	
+		&connectors;
 
 		<Engine name="Catalina" defaultHost="localhost">
 

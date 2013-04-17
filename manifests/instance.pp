@@ -45,11 +45,15 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::instance (
+<<<<<<< HEAD
     $ip_address    = undef,
     $http_port     = '8080',
     $https_port    = '8443',
     $shutdown_port = '8005',
     $scheme        = 'http',
+=======
+    $shutdown_port = 8005,
+>>>>>>> Added several connectors
     $apr_enabled   = true,
     $max_heap      = '1024m',
     $min_heap      = '1024m',
@@ -64,6 +68,8 @@ define tomcat::instance (
 
     tomcat::service { $name: }
 
+    tomcat::connector::init { $name: notify => Tomcat::Service[$name], }
+
     tomcat::jndi { $name: notify => Tomcat::Service[$name], }
 
     tomcat::realm { $name: notify => Tomcat::Service[$name], }
@@ -72,18 +78,14 @@ define tomcat::instance (
 
     tomcat::cluster { $name: notify => Tomcat::Service[$name], }
 
-    file { [
-        $instance_home,
-        "${instance_home}/tomcat",
-        "${instance_home}/tomcat/bin",
-        "${instance_home}/tomcat/conf",
-        "${instance_home}/tomcat/conf/Catalina",
-        "${instance_home}/tomcat/conf/Catalina/localhost",
-        "${instance_home}/tomcat/lib",
-        "${instance_home}/tomcat/logs",
-        "${instance_home}/tomcat/temp",
-        "${instance_home}/tomcat/webapps",
-        "${instance_home}/tomcat/work"]:
+    if (!defined(Tomcat::Connector[$name])) {
+        tomcat::connector::http { $name: }
+    }
+
+    file { [$instance_home, "${instance_home}/tomcat", "${instance_home}/tomcat/bin", "${instance_home}/tomcat/conf",
+        "${instance_home}/tomcat/conf/Catalina", "${instance_home}/tomcat/conf/Catalina/localhost", "${instance_home}/tomcat/lib",
+        "${instance_home}/tomcat/logs", "${instance_home}/tomcat/temp", "${instance_home}/tomcat/webapps", "${instance_home}/tomcat/work"
+        ]:
         ensure  => directory,
         owner   => $name,
         group   => $name,
@@ -197,7 +199,7 @@ define tomcat::instance (
         require => File["${instance_home}/tomcat"],
         notify  => Tomcat::Service[$name],
     }
-    
+
     file { "${instance_home}/tomcat/conf/context.xml":
         owner   => $name,
         group   => $name,

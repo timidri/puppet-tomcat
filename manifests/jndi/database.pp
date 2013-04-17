@@ -12,7 +12,8 @@ define tomcat::jndi::database (
     $factory       = undef,
 ) {
     tomcat::jndi::resource { $name:
-        instance   => $instance,
+        instance        => $instance,
+        resource_name   => $resource_name,
         attributes => [
             {'auth'              => $auth },
             {'username'          => $username },

@@ -66,6 +66,7 @@ define tomcat::jndi::database::mysql (
     $max_idle           = '10',
     $factory            = 'org.apache.tomcat.jdbc.pool.DataSourceFactory',
     $jmx_enabled        = true,
+    $auto_reconnect     = true,
 ) {
     tomcat::jndi::resource { $name:
         instance      => $instance,
@@ -75,7 +76,7 @@ define tomcat::jndi::database::mysql (
             {'username' => $username},
             {'password' => $password},
             {'driverClassName' => $driver},
-            {'url' => "jdbc:mysql://${host}/${database}?useUnicode=${use_unicode}&amp;characterEncoding=${character_encoding}&amp;useFastDateParsing=${fast_date_parsing}"},
+            {'url' => "jdbc:mysql://${host}/${database}?useUnicode=${use_unicode}&amp;characterEncoding=${character_encoding}&amp;useFastDateParsing=${fast_date_parsing}&amp;autoReconnect=${auto_reconnect}"},
             {'initialSize'=> $initial_size },
             {'maxActive' => $max_active },
             {'maxIdle' => $max_idle },
