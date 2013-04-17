@@ -20,7 +20,8 @@ define tomcat::connector::https (
     $secure               = true,
     $ssl_enabled          = true,
     $ssl_certificate_file = '',
-    $uri_encoding         = 'UTF-8',) {
+    $uri_encoding         = 'UTF-8',
+) {
     tomcat::connector { $name:
         instance     => $instance,
         port         => $port,
@@ -40,6 +41,6 @@ define tomcat::connector::https (
             , {
                 'SSLCertificateFile' => $ssl_certificate_file
             }
-            ]
+            ,]
     }
 }

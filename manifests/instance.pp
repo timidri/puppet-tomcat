@@ -53,7 +53,8 @@ define tomcat::instance (
     $max_perm      = '384m',
     $unpack_wars   = true,
     $auto_deploy   = true,
-    $ensure        = present,) {
+    $ensure        = present,
+) {
     include tomcat
 
     $instance_home = "${tomcat::params::home}/${name}"
