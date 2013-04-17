@@ -23,11 +23,7 @@
     "manifests/docs.pp": "9e2416f88772fa7e8871dc90a2047486",
     "manifests/examples.pp": "9c1327a6caad3c62788c3c93a26f3bb6",
     "manifests/init.pp": "c0f35521df79656631b03aeacef6a2e6",
-<<<<<<< HEAD
-    "manifests/instance.pp": "4d1aeb9d916d87264f2abcc27ade73bc",
-=======
-    "manifests/instance.pp": "e7ddfedd874a7077b22365b194e21b44",
->>>>>>> Added several connectors
+    "manifests/instance.pp": "aeb9226f2a89ea1a0a49691d5e9564ee",
     "manifests/jndi.pp": "21e29d9eb3047b0da414cd8c475ac584",
     "manifests/jndi/database.pp": "b1b87e616fb9193354b71e48ffc61fb7",
     "manifests/jndi/database/db2.pp": "78a0b625a54d529ddcc848a150a279f2",

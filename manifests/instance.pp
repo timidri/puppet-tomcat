@@ -45,15 +45,7 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::instance (
-<<<<<<< HEAD
-    $ip_address    = undef,
-    $http_port     = '8080',
-    $https_port    = '8443',
-    $shutdown_port = '8005',
-    $scheme        = 'http',
-=======
     $shutdown_port = 8005,
->>>>>>> Added several connectors
     $apr_enabled   = true,
     $max_heap      = '1024m',
     $min_heap      = '1024m',
