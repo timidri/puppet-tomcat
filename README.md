@@ -10,7 +10,7 @@ Depencendies:
     'proteon/maven', '>=1.0.1'
     
 Optional:
-	'puppetlabs/mysql',  '>=0.6.1' # When using jndi mysql database resources
+    'puppetlabs/mysql',  '>=0.6.1' # When using jndi mysql database resources
 
 Basic usage
 -------------------------
@@ -89,13 +89,19 @@ To add an environment variable
       env_value   => 'hello world',
     }
 
-Configure a connector for the an instance
+Configure a connector for an instance
 -------------------------
+This example will only enable the AJP connector for this instance,
+because the connector resource has the same title as the instance. 
+Keep in mind that this won't create the default http connector it would 
+when not specifying any connector.
 
-    tomcat::connector::ajp { 'tomcat_1:8009':
+    tomcat::connector::ajp { 'tomcat_1':
       instance	=> 'tomcat_1',
       port 	=> 8009,
     }
+    
+    tomcat::instance { 'tomcat_1': }
 
 Configure a realm (authentication) for an instance
 -------------------------
