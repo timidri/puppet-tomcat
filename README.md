@@ -27,12 +27,7 @@ To create an instance
 A slightly more complicated example
 
     tomcat::instance { 'tomcat_2':
-      ip_address    => undef,
-      http_port     => '18080',
-      https_port    => '18443',
-      ajp_port      => '18009',
       shutdown_port => '18005',
-      scheme        => 'http',
       apr_enabled   => false,
       min_heap      => '1024m',
       max_heap      => '2048m',
@@ -93,7 +88,35 @@ To add an environment variable
       instance    => 'tomcat_3',
       env_value   => 'hello world',
     }
-    
+
+Configure a connector for the an instance
+-------------------------
+
+    tomcat::connector::ajp { 'tomcat_1:8009':
+      instance	=> 'tomcat_1',
+      port 	=> 8009,
+    }
+
+Configure a realm (authentication) for an instance
+-------------------------
+To add a userdatabase with the 'MemoryUserDatabaseFactory' (tomcat-users.xml)
+
+    tomcat::realm::userdatabase { 'tomcat_1_userdatabase_realm':
+      instance => 'tomcat_1'
+    }
+
+Add roles to the userdatabase
+
+    tomcat::realm::userdatabase::role { ['role_1','manager-gui','admin-gui']: }
+
+Add a user to the userdatabase (this example allows this user to use the manager applications)
+
+    tomcat::realm::userdatabase::user { 'user_1':
+      instance => 'tomcat_1',
+      password => '1_tacmot',
+      roles    => 'manager-gui,admin-gui',
+    }
+
 Configure clustering for an instance
 -------------------------
 To add simple clustering for instances
@@ -104,7 +127,7 @@ Configure the tomcat manager and host-manager
 -------------------------
 To add the manager applications for instances
 
-    tomcat::manager { ['tomcat_1','tomcat_2']:}
+    tomcat::webapp::manager { ['tomcat_1','tomcat_2']:}
 
 This will make them available at /manager and /host-manager
     
@@ -112,7 +135,7 @@ Configure the tomcat docs
 -------------------------
 To add the docs for instances
 
-    tomcat::docs { 'tomcat_1':}
+    tomcat::webapp::docs { 'tomcat_1':}
 
 This will make them available at /docs
 
@@ -120,6 +143,6 @@ Configure the tomcat example applications
 -------------------------
 To add the example applications for instances
 
-    tomcat::examples { 'tomcat_1':}
+    tomcat::webapp::examples { 'tomcat_1':}
 
 This will make them available at /examples
