@@ -6,9 +6,9 @@
   "project_page": "https://github.com/Proteon/puppet-tomcat",
   "source": "git://github.com/Proteon/puppet-tomcat.git",
   "summary": "",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "checksums": {
-    "Modulefile": "5ba98d26b598d0f65cd0d1c22c4d6d4e",
+    "Modulefile": "69e8dc800e062ab72c9069c9f694950d",
     "README.md": "0fec0aa11bcddb0b5eb7c5423cb08fbc",
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files/tomcat": "f5f5d1b94dcdc317f79e98ea7b1ada56",
