@@ -3,8 +3,8 @@ define tomcat::jndi::database::db2 (
     $username,
     $password,
     $driver_lib,
+    $instance,
     $resource_name  = 'jdbc/Db2Pool',
-    $instance       = $name,
     $host           = 'localhost',
     $port           = '50000',
     $driver         = 'com.ibm.db2.jcc.DB2Driver',
@@ -14,7 +14,7 @@ define tomcat::jndi::database::db2 (
     $max_active     = '8',
     $max_idle       = '4',
 ) {
-    tomcat::jndi::resource { $name:
+    tomcat::jndi::resource { "${instance}:${resource_name}":
         instance      => $instance,
         resource_name => $resource_name,
         attributes    => [

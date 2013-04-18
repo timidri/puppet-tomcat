@@ -14,7 +14,7 @@
 #
 #  tomcat::webapp { 'jira':
 #   instance => 'instance_1',
-#   source   => 'puppet://jira/jira.war',
+#   source   => 'puppet:///modules/jira/jira.war',
 # === Authors
 #
 # Sander Bilo <sander@proteon.nl>

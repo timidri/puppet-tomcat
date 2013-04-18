@@ -11,7 +11,7 @@ define tomcat::jndi::database (
     $max_idle      = undef,
     $factory       = undef,
 ) {
-    tomcat::jndi::resource { $name:
+    tomcat::jndi::resource { "${instance}:${resource_name}":
         instance        => $instance,
         resource_name   => $resource_name,
         attributes => [

@@ -13,20 +13,23 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::connector::http (
+    $ensure       = present,
     $instance     = $name,
-    $address      = '',
+    $address      = '0.0.0.0',
     $port         = 8080,
     $scheme       = 'http',
     $uri_encoding = 'UTF-8',) {
-    tomcat::connector { $name:
+    tomcat::connector { $instance:
+        ensure       => $ensure,
         instance     => $instance,
         port         => $port,
         uri_encoding => $uri_encoding,
         attributes   => [{
                 'address' => $address
             }
-            ,{
+            , {
                 'scheme' => $scheme
-            }]
+            }
+            ]
     }
 }

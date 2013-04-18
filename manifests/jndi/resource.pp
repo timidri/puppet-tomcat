@@ -1,13 +1,13 @@
 define tomcat::jndi::resource (
     $resource_name,
-    $instance      = $name,
-    $context       = undef,
+    $instance,
+    $type          = 'context',
     $resource_type = 'javax.sql.DataSource',
     $attributes    = [],
 ) {
     concat::fragment { "Adding JNDI Resource ${resource_name} for ${instance}":
-        target  => "${tomcat::params::home}/${instance}/tomcat/conf/context-jndi-resources.xml",
+        target  => "${tomcat::params::home}/${instance}/tomcat/conf/${type}-jndi-resources.xml",
         order   => 01,
-        content => template('tomcat/context-jndi-resources.xml.erb'),
+        content => template('tomcat/jndi-resources.xml.erb'),
     }
 }

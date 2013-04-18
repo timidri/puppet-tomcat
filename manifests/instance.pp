@@ -4,11 +4,7 @@
 #
 # Document parameters here.
 #
-# [*ip_address*]    The ipv4 /ipv6 ipadress the http connector should use. Defaults to all.
-# [*http_port*]     The port the http connector should use. Defaults to 8080.
-# [*https_port*]    The port the https connector should use. Defaults to 8443.
 # [*shutdown_port*] The port the shutdown command can be issued to. Defaults to 8005.
-# [*scheme*]        The scheme the http connector should use. Defaults to http.
 # [*apr_enabled*]   Enable apr. Defaults to true.
 # [*max_heap*]      Max heap space to use. Defaults to 1024m.
 # [*min_heap*]      Min heap space to use. Defaults to 1024m.
@@ -22,11 +18,7 @@
 # === Examples
 #
 #  tomcat::instance { 'instance_1':
-#   ip_address    => 'fe80::1%lo0',
-#   http_port     => '8081',
-#   https_port    => '8444',
 #   shutdown_port => '8006',
-#   scheme        => 'http',
 #   apr_enabled   => true,
 #   max_heap      => '2048m',
 #   min_heap      => '1024m',
@@ -59,20 +51,26 @@ define tomcat::instance (
 
     $instance_home = "${tomcat::params::home}/${name}"
 
-    tomcat::service { $name: }
+    tomcat::service { $name:
+        ensure => $ensure ? {
+            present => 'running',
+            absent  => 'stopped',
+            default => 'running',
+        }
+    }
 
-    tomcat::connector::init { $name: notify => Tomcat::Service[$name], }
+    tomcat::connector::init { $name: ensure => $ensure, notify => Tomcat::Service[$name], }
 
-    tomcat::jndi { $name: notify => Tomcat::Service[$name], }
+    tomcat::jndi::init { $name: ensure => $ensure, notify => Tomcat::Service[$name], }
 
-    tomcat::realm { $name: notify => Tomcat::Service[$name], }
+    tomcat::realm::init { $name: ensure => $ensure, notify => Tomcat::Service[$name], }
 
-    tomcat::valve { $name: notify => Tomcat::Service[$name], }
+    tomcat::valve::init { $name: ensure => $ensure, notify => Tomcat::Service[$name], }
 
-    tomcat::cluster { $name: notify => Tomcat::Service[$name], }
+    tomcat::cluster::init { $name: ensure => $ensure, notify => Tomcat::Service[$name], }
 
-    if (!defined(Tomcat::Connector[$name])) {
-        tomcat::connector::http { $name: }
+    if (!defined(Tomcat::Connector::Http[$name]) and !defined(Tomcat::Connector::Ajp[$name]) and !defined(Tomcat::Connector::Https[$name])) {
+        tomcat::connector::http { $name: ensure => $ensure, }
     }
 
     file { [$instance_home, "${instance_home}/tomcat", "${instance_home}/tomcat/bin", "${instance_home}/tomcat/conf",
@@ -152,12 +150,6 @@ define tomcat::instance (
         notify => Tomcat::Service[$name],
     }
 
-    file { "${instance_home}/tomcat/conf/tomcat-users.xml":
-        ensure => link,
-        target => "/etc/tomcat${tomcat::version}/tomcat-users.xml",
-        notify => Tomcat::Service[$name],
-    }
-
     file { "${instance_home}/tomcat/conf/web.xml":
         ensure => link,
         target => "/etc/tomcat${tomcat::version}/web.xml",
@@ -174,8 +166,6 @@ define tomcat::instance (
         home     => $instance_home,
         password => '!',
         comment  => "${name} instance user",
-        require  => File[$tomcat::params::home],
-        notify   => Tomcat::Service[$name],
     }
 
     file { "/etc/tomcat.d/${name}":
@@ -186,6 +176,7 @@ define tomcat::instance (
     }
 
     file { "${instance_home}/tomcat/conf/server.xml":
+        ensure  => $ensure,
         owner   => $name,
         group   => $name,
         content => template('tomcat/server.xml.erb'),
@@ -194,6 +185,7 @@ define tomcat::instance (
     }
 
     file { "${instance_home}/tomcat/conf/context.xml":
+        ensure  => $ensure,
         owner   => $name,
         group   => $name,
         content => template('tomcat/context.xml.erb'),

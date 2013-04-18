@@ -54,8 +54,8 @@ define tomcat::jndi::database::mysql (
     $database,
     $username,
     $password,
+    $instance,
     $resource_name      = 'jdbc/MysqlPool',
-    $instance           = $name,
     $host               = 'localhost',
     $driver             = 'com.mysql.jdbc.Driver',
     $use_unicode        = true,
@@ -68,7 +68,7 @@ define tomcat::jndi::database::mysql (
     $jmx_enabled        = true,
     $auto_reconnect     = true,
 ) {
-    tomcat::jndi::resource { $name:
+    tomcat::jndi::resource { "${instance}:${resource_name}":
         instance      => $instance,
         resource_name => $resource_name,
         attributes    => [
@@ -85,15 +85,17 @@ define tomcat::jndi::database::mysql (
         ],
     }
 
-    tomcat::lib::maven { "${instance}:mysql-connector-java-5.1.24":
-        lib        => 'mysql-connector-java-5.1.24.jar',
-        instance   => $instance,
-        groupid    => 'mysql',
-        artifactid => 'mysql-connector-java',
-        version    => '5.1.24',
+    if(!defined(Tomcat::Lib::Maven["${instance}:mysql-connector-java-5.1.24"])) {
+	    tomcat::lib::maven { "${instance}:mysql-connector-java-5.1.24":
+	        lib        => 'mysql-connector-java-5.1.24.jar',
+	        instance   => $instance,
+	        groupid    => 'mysql',
+	        artifactid => 'mysql-connector-java',
+	        version    => '5.1.24',
+	    }
     }
-    
-    if ('org.apache.tomcat.jdbc' in $factory) {
+
+    if ('org.apache.tomcat.jdbc' in $factory and !defined(Tomcat::Lib::Maven["${instance}:tomcat-jdbc-7.0.19"])) {
         tomcat::lib::maven { "${instance}:tomcat-jdbc-7.0.19":
             lib        => 'tomcat-jdbc-7.0.19.jar',
             instance   => $instance,
@@ -103,9 +105,9 @@ define tomcat::jndi::database::mysql (
         }
     }
 
-    if (!defined(Mysql::Db[$name]) and $host == 'localhost') {
+    if (!defined(Mysql::Db[$database]) and $host == 'localhost') {
         include mysql::server
-        
+
         mysql::db { $database:
             user     => $username,
             password => $password,

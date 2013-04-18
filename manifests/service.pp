@@ -8,7 +8,7 @@
 #
 # Copyright 2013 Proteon.
 #
-define tomcat::service () {
+define tomcat::service ($ensure = 'running',) {
     service { $name:
         ensure     => 'running',
         provider   => 'base',

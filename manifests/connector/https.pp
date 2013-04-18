@@ -13,16 +13,17 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::connector::https (
+    $ensure               = present,
     $instance             = $name,
-    $address              = '',
+    $address              = '0.0.0.0',
     $port                 = 8443,
     $scheme               = 'https',
     $secure               = true,
     $ssl_enabled          = true,
     $ssl_certificate_file = '',
-    $uri_encoding         = 'UTF-8',
-) {
+    $uri_encoding         = 'UTF-8',) {
     tomcat::connector { $name:
+        ensure       => $ensure,
         instance     => $instance,
         port         => $port,
         uri_encoding => $uri_encoding,

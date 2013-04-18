@@ -4,6 +4,9 @@
 	<!ENTITY engine-cluster SYSTEM "engine-cluster.xml">
 	<!ENTITY engine-realms SYSTEM "engine-realms.xml">
 	<!ENTITY engine-valves SYSTEM "engine-valves.xml">
+	<!ENTITY server-jndi-environmentvars SYSTEM "server-jndi-environmentvars.xml">
+	<!ENTITY server-jndi-resourcelinks SYSTEM "server-jndi-resourcelinks.xml">
+	<!ENTITY server-jndi-resources SYSTEM "server-jndi-resources.xml">
 	<!ENTITY host-cluster SYSTEM "host-cluster.xml">
 	<!ENTITY host-valves SYSTEM "host-valves.xml">
 ]>
@@ -29,6 +32,16 @@
 		<Listener className="org.apache.catalina.mbeans.ServerLifecycleListener" />
 	<% end -%>
 	<Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+
+	<GlobalNamingResources>
+    	
+    	&server-jndi-environmentvars;
+		
+		&server-jndi-resourcelinks;
+		
+		&server-jndi-resources;
+	
+	</GlobalNamingResources>
 
 	<Service name="Catalina">
 	

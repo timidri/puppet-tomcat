@@ -1,11 +1,11 @@
 define tomcat::jndi::database::hsql (
-    $instance      = $name,
+    $instance,
     $resource_name = 'jdbc/HsqlPool',
     $url           = 'jdbc:hsqldb:data',
     $max_active    = '8',
     $max_idle      = '4',
 ) {
-    tomcat::jndi::resource { $instance:
+    tomcat::jndi::resource { "${instance}:${resource_name}":
         instance      => $instance,
         resource_name => $resource_name,
         attributes    => [

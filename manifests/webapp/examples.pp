@@ -10,7 +10,7 @@
 #
 # === Examples
 #
-#  tomcat::examples { 'instance_1': }
+#  tomcat::webapp::examples { 'instance_1': }
 #
 # === Authors
 #
@@ -20,9 +20,9 @@
 #
 # Copyright 2013 Proteon.
 #
-define tomcat::examples ($instance = $name) {
+define tomcat::webapp::examples ($instance = $name) {
     include tomcat
-    
+
     if (!defined(Package["tomcat${tomcat::version}-examples"])) {
         package { "tomcat${tomcat::version}-examples": ensure => held, }
     }

@@ -13,20 +13,21 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::connector::ajp (
-    $instance             = $name,
-    $address              = '',
-    $port                 = 8009,
-    $protocol             = 'AJP/1.3',
-    $uri_encoding         = 'UTF-8',
-) {
+    $ensure       = present,
+    $instance     = $name,
+    $address      = '0.0.0.0',
+    $port         = 8009,
+    $protocol     = 'AJP/1.3',
+    $uri_encoding = 'UTF-8',) {
     tomcat::connector { $name:
+        ensure       => $ensure,
         instance     => $instance,
         port         => $port,
         uri_encoding => $uri_encoding,
         attributes   => [{
                 'address' => $address
             }
-            ,{
+            , {
                 'protocol' => $protocol
             }
             ,]
