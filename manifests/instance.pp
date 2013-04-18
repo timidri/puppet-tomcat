@@ -69,7 +69,7 @@ define tomcat::instance (
 
     tomcat::cluster::init { $name: ensure => $ensure, notify => Tomcat::Service[$name], }
 
-    if (!defined(Tomcat::Connector::Http[$name]) and !defined(Tomcat::Connector::Ajp[$name]) and !defined(Tomcat::Connector::Https[$name])) {
+    if (!defined(Tomcat::Connector[$name])) {
         tomcat::connector::http { $name: ensure => $ensure, }
     }
 
@@ -162,7 +162,7 @@ define tomcat::instance (
     }
 
     user { $name:
-        ensure   => $ensure,
+        ensure   => present,
         home     => $instance_home,
         password => '!',
         comment  => "${name} instance user",

@@ -22,6 +22,7 @@
 # [*max_idle*] Minimal active connections (defaults to 4).
 # [*factory*] Connection factory to use (defaults to 'org.apache.tomcat.jdbc.pool.DataSourceFactory'),
 # [*jmx_enabled*] Enable jmx for the connection pool (defaults to true),
+# [*validation_query*] The query to use to check if a connection is still valid (defaults to 'SELECT 1'),
 #
 # === Variables
 #
@@ -67,6 +68,7 @@ define tomcat::jndi::database::mysql (
     $factory            = 'org.apache.tomcat.jdbc.pool.DataSourceFactory',
     $jmx_enabled        = true,
     $auto_reconnect     = true,
+    $validation_query   = 'SELECT 1',
 ) {
     tomcat::jndi::resource { "${instance}:${resource_name}":
         instance      => $instance,
@@ -82,6 +84,7 @@ define tomcat::jndi::database::mysql (
             {'maxIdle' => $max_idle },
             {'factory' => $factory },
             {'jmxEnabled' => $jmx_enabled },
+            {'validationQuery' => $validation_query },
         ],
     }
 
