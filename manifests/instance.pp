@@ -45,8 +45,7 @@ define tomcat::instance (
     $max_perm      = '384m',
     $unpack_wars   = true,
     $auto_deploy   = true,
-    $ensure        = present,
-) {
+    $ensure        = present,) {
     include tomcat
 
     $instance_home = "${tomcat::params::home}/${name}"
@@ -59,18 +58,71 @@ define tomcat::instance (
         }
     }
 
-    tomcat::connector::init { $name: ensure => $ensure, notify => Tomcat::Service[$name], }
+    tomcat::connector::init { $name:
+        ensure => $ensure,
+        notify => Tomcat::Service[$name],
+    }
 
-    tomcat::jndi::init { $name: ensure => $ensure, notify => Tomcat::Service[$name], }
+    tomcat::listener::init { $name:
+        ensure => $ensure,
+        notify => Tomcat::Service[$name],
+    }
 
-    tomcat::realm::init { $name: ensure => $ensure, notify => Tomcat::Service[$name], }
+    tomcat::jndi::init { $name:
+        ensure => $ensure,
+        notify => Tomcat::Service[$name],
+    }
 
-    tomcat::valve::init { $name: ensure => $ensure, notify => Tomcat::Service[$name], }
+    tomcat::realm::init { $name:
+        ensure => $ensure,
+        notify => Tomcat::Service[$name],
+    }
 
-    tomcat::cluster::init { $name: ensure => $ensure, notify => Tomcat::Service[$name], }
+    tomcat::valve::init { $name:
+        ensure => $ensure,
+        notify => Tomcat::Service[$name],
+    }
+
+    tomcat::cluster::init { $name:
+        ensure => $ensure,
+        notify => Tomcat::Service[$name],
+    }
 
     if (!defined(Tomcat::Connector[$name])) {
         tomcat::connector::http { $name: ensure => $ensure, }
+    }
+
+    if ($apr_enabled) {
+        tomcat::listener { "${name}:org.apache.catalina.core.AprLifecycleListener":
+            instance   => $name,
+            class_name => 'org.apache.catalina.core.AprLifecycleListener',
+            attributes => [{
+                    'SSLEngine' => 'on'
+                }
+                ],
+        }
+    }
+
+    tomcat::listener { "${name}:org.apache.catalina.core.JasperListener":
+        instance   => $name,
+        class_name => 'org.apache.catalina.core.JasperListener',
+    }
+
+    tomcat::listener { "${name}:org.apache.catalina.core.JreMemoryLeakPreventionListener":
+        instance   => $name,
+        class_name => 'org.apache.catalina.core.JreMemoryLeakPreventionListener',
+    }
+
+    if ($tomcat::version < 7) {
+        tomcat::listener { "${name}:org.apache.catalina.mbeans.ServerLifecycleListener":
+            instance   => $name,
+            class_name => 'org.apache.catalina.mbeans.ServerLifecycleListener',
+        }
+    }
+
+    tomcat::listener { "${name}:org.apache.catalina.mbeans.GlobalResourcesLifecycleListener":
+        instance   => $name,
+        class_name => 'org.apache.catalina.mbeans.GlobalResourcesLifecycleListener',
     }
 
     file { [$instance_home, "${instance_home}/tomcat", "${instance_home}/tomcat/bin", "${instance_home}/tomcat/conf",

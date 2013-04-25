@@ -7,6 +7,7 @@
 	<!ENTITY server-jndi-environmentvars SYSTEM "server-jndi-environmentvars.xml">
 	<!ENTITY server-jndi-resourcelinks SYSTEM "server-jndi-resourcelinks.xml">
 	<!ENTITY server-jndi-resources SYSTEM "server-jndi-resources.xml">
+	<!ENTITY server-listeners SYSTEM "server-listeners.xml">
 	<!ENTITY host-cluster SYSTEM "host-cluster.xml">
 	<!ENTITY host-valves SYSTEM "host-valves.xml">
 ]>
@@ -22,16 +23,7 @@
 	language governing permissions and limitations under the License. -->
 <Server port="<%= shutdown_port %>" shutdown="SHUTDOWN">
 
-	<% if (apr_enabled) %>
-	<Listener className="org.apache.catalina.core.AprLifecycleListener"
-		SSLEngine="on" />
-	<% end -%>
-	<Listener className="org.apache.catalina.core.JasperListener" />
-	<Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
-	<% if (scope.lookupvar('tomcat::version').to_i < 7) %>
-		<Listener className="org.apache.catalina.mbeans.ServerLifecycleListener" />
-	<% end -%>
-	<Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+	&server-listeners;
 
 	<GlobalNamingResources>
     	
