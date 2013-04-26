@@ -97,9 +97,8 @@ define tomcat::instance (
             instance   => $name,
             class_name => 'org.apache.catalina.core.AprLifecycleListener',
             attributes => [{
-                    'SSLEngine' => 'on'
-                }
-                ],
+                'SSLEngine' => 'on',
+            }],
         }
     }
 
