@@ -29,9 +29,21 @@
 #
 # Copyright 2013 Proteon.
 #
-define tomcat::webapp::maven ($webapp = "${name}.war", $instance, $groupid, $artifactid, $version, $repos =[]) {
+define tomcat::webapp::maven (
+    $webapp = "${name}.war",
+    $instance,
+    $groupid,
+    $artifactid,
+    $version,
+    $repos  = []) {
     include maven
     include tomcat
+
+    if ($webapp == 'ROOT') {
+        $notify = Tomcat::Service[$instance]
+    } else {
+        $notify = undef
+    }
 
     maven { "${tomcat::params::home}/${instance}/tomcat/webapps/${webapp}.war":
         groupid    => $groupid,
@@ -39,6 +51,7 @@ define tomcat::webapp::maven ($webapp = "${name}.war", $instance, $groupid, $art
         version    => $version,
         packaging  => 'war',
         repos      => $repos,
-        require    => [File["${tomcat::params::home}/${instance}/tomcat/webapps"],Package['maven']],
+        require    => [File["${tomcat::params::home}/${instance}/tomcat/webapps"], Package['maven']],
+        notify     => $notify,
     }
 }
