@@ -37,15 +37,16 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::instance (
-    $shutdown_port = 8005,
-    $apr_enabled   = true,
-    $max_heap      = '1024m',
-    $min_heap      = '1024m',
-    $min_perm      = '384m',
-    $max_perm      = '384m',
-    $unpack_wars   = true,
-    $auto_deploy   = true,
-    $ensure        = present,) {
+    $shutdown_port     = 8005,
+    $apr_enabled       = true,
+    $max_heap          = '1024m',
+    $min_heap          = '1024m',
+    $min_perm          = '384m',
+    $max_perm          = '384m',
+    $unpack_wars       = true,
+    $auto_deploy       = true,
+    $deploy_on_startup = true,
+    $ensure            = present,) {
     include tomcat
 
     $instance_home = "${tomcat::params::home}/${name}"
@@ -97,8 +98,9 @@ define tomcat::instance (
             instance   => $name,
             class_name => 'org.apache.catalina.core.AprLifecycleListener',
             attributes => [{
-                'SSLEngine' => 'on',
-            }],
+                    'SSLEngine' => 'on',
+                }
+                ],
         }
     }
 

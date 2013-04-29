@@ -39,18 +39,13 @@ define tomcat::webapp::maven (
     include maven
     include tomcat
 
-    if ($webapp == 'ROOT') {
-        $notify = Tomcat::Service[$instance]
-    } else {
-        $notify = undef
-    }
-
     maven { "${tomcat::params::home}/${instance}/tomcat/webapps/${webapp}.war":
         groupid    => $groupid,
         artifactid => $artifactid,
         version    => $version,
         packaging  => 'war',
         repos      => $repos,
+        user       => $instance,
         require    => [File["${tomcat::params::home}/${instance}/tomcat/webapps"], Package['maven']],
         notify     => $notify,
     }

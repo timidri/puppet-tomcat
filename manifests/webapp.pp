@@ -24,11 +24,6 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::webapp ($webapp = $name, $instance, $source) {
-    if ($webapp == 'ROOT') {
-        $notify = Tomcat::Service[$instance]
-    } else {
-        $notify = undef
-    }
 
     file { "${tomcat::params::home}/${instance}/tomcat/webapps/${webapp}.war":
         source  => $source,
