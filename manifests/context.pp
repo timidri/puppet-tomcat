@@ -24,10 +24,20 @@
 #
 # Copyright 2013 Proteon.
 #
-define tomcat::context ($instance, $context = $name, $content) {
+define tomcat::context (
+    $instance,
+    $context = $name,
+    $content) {
+    if ($context == 'ROOT') {
+        $notify = Tomcat::Service[$instance]
+    } else {
+        $notify = undef
+    }
+
     file { "${tomcat::params::home}/${instance}/tomcat/conf/Catalina/localhost/${context}.xml":
         content => $content,
         owner   => $instance,
         mode    => '0644',
+        notify  => $notify,
     }
 }
