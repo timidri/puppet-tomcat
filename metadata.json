@@ -45,7 +45,7 @@
     "manifests/webapp/docs.pp": "7a45c8da3ca17b727cfa5e1360c5433e",
     "manifests/webapp/examples.pp": "3d2643fcfa9045bc7426dd3b350f3ba3",
     "manifests/webapp/manager.pp": "92a052830cad4427158479f6a5515529",
-    "manifests/webapp/maven.pp": "2b3058723c859f18b6d7cbbe8c75a6cd",
+    "manifests/webapp/maven.pp": "7eab2c8e1f874ec4721bfe2868cf813d",
     "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec/spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
     "templates/cluster.xml.erb": "e137fa33dd49078792f1e3cad1de06f6",

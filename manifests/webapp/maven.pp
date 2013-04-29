@@ -32,13 +32,13 @@
 define tomcat::webapp::maven ($webapp = "${name}.war", $instance, $groupid, $artifactid, $version, $repos =[]) {
     include maven
     include tomcat
-    
+
     maven { "${tomcat::params::home}/${instance}/tomcat/webapps/${webapp}.war":
         groupid    => $groupid,
         artifactid => $artifactid,
         version    => $version,
         packaging  => 'war',
         repos      => $repos,
-        require    => File["${tomcat::params::home}/${instance}/tomcat/webapps"],Package['maven']],
+        require    => [File["${tomcat::params::home}/${instance}/tomcat/webapps"],Package['maven']],
     }
 }
