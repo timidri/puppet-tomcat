@@ -41,7 +41,7 @@
     "manifests/realm/userdatabase.pp": "c60f3cda9750e1360807587e0766ea70",
     "manifests/service.pp": "bda7da712ad17bfa8e74f6dca0bf9adc",
     "manifests/valve/init.pp": "178dabd61a035be4f3e7751ac055c549",
-    "manifests/webapp.pp": "ecc4dafb4e235385eb23455ee81cb0e3",
+    "manifests/webapp.pp": "0944966fb91be28304a81e4313e48066",
     "manifests/webapp/docs.pp": "7a45c8da3ca17b727cfa5e1360c5433e",
     "manifests/webapp/examples.pp": "3d2643fcfa9045bc7426dd3b350f3ba3",
     "manifests/webapp/manager.pp": "92a052830cad4427158479f6a5515529",
