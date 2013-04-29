@@ -45,7 +45,6 @@ define tomcat::webapp::maven (
         version    => $version,
         packaging  => 'war',
         repos      => $repos,
-        user       => $instance,
         require    => [File["${tomcat::params::home}/${instance}/tomcat/webapps"], Package['maven']],
         notify     => $notify,
     }
