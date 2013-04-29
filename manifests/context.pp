@@ -29,6 +29,5 @@ define tomcat::context ($instance, $context = $name, $content) {
         content => $content,
         owner   => $instance,
         mode    => '0644',
-        require => Tomcat::Instance[$instance],
     }
 }
