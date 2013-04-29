@@ -132,7 +132,6 @@ define tomcat::instance (
         owner   => $name,
         group   => $name,
         require => User[$name],
-        notify  => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/bootstrap.jar":
