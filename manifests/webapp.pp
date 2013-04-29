@@ -28,6 +28,5 @@ define tomcat::webapp ($webapp = $name, $instance, $source) {
         source  => $source,
         owner   => $instance,
         mode    => '0644',
-        require => Tomcat::Instance[$instance],
     }
 }

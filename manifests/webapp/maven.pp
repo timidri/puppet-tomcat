@@ -30,7 +30,8 @@
 # Copyright 2013 Proteon.
 #
 define tomcat::webapp::maven ($webapp = "${name}.war", $instance, $groupid, $artifactid, $version, $repos =[]) {
-    include ::maven
+    include maven
+    include tomcat
     
     maven { "${tomcat::params::home}/${instance}/tomcat/webapps/${webapp}.war":
         groupid    => $groupid,
@@ -38,6 +39,6 @@ define tomcat::webapp::maven ($webapp = "${name}.war", $instance, $groupid, $art
         version    => $version,
         packaging  => 'war',
         repos      => $repos,
-        require    => [Tomcat::Instance[$instance],Package['maven']],
+        require    => File["${tomcat::params::home}/${instance}/tomcat/webapps"],Package['maven']],
     }
 }

@@ -29,13 +29,13 @@ define tomcat::webapp::manager ($instance = $name) {
         content  => "<Context path=\"/manager\" privileged=\"true\" antiResourceLocking=\"false\" docBase=\"/usr/share/tomcat${tomcat::version}-admin/manager\"></Context>",
         context  => 'manager',
         instance => $instance,
-        require  => Tomcat::Instance[$instance],
+        require  => Package["tomcat${tomcat::version}-admin"],
     }
 
     tomcat::context { "${name} host-manager.xml":
         content  => "<Context path=\"/host-manager\" privileged=\"true\" antiResourceLocking=\"false\" docBase=\"/usr/share/tomcat${tomcat::version}-admin/host-manager\"></Context>",
         context  => 'host-manager',
         instance => $instance,
-        require  => Tomcat::Instance[$instance],
+        require  => Package["tomcat${tomcat::version}-admin"],
     }
 }
