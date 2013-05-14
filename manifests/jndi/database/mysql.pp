@@ -107,13 +107,4 @@ define tomcat::jndi::database::mysql (
             version    => '7.0.19',
         }
     }
-
-    if (!defined(Mysql::Db[$database]) and $host == 'localhost') {
-        include mysql::server
-
-        mysql::db { $database:
-            user     => $username,
-            password => $password,
-        }
-    }
 }
