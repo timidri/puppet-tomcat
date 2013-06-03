@@ -133,6 +133,7 @@ define tomcat::instance (
         ensure  => directory,
         owner   => $name,
         group   => $name,
+        mode    => '0640',
         require => User[$name],
     }
 
@@ -211,6 +212,7 @@ define tomcat::instance (
     file { "${instance_home}/tomcat/bin/setenv.sh":
         content => template('tomcat/setenv.sh.erb'),
         notify  => Tomcat::Service[$name],
+        mode    => '0640',
     }
 
     user { $name:
@@ -225,6 +227,7 @@ define tomcat::instance (
         content => '',
         require => User[$name],
         notify  => Tomcat::Service[$name],
+        mode    => '0640',
     }
 
     file { "${instance_home}/tomcat/conf/server.xml":
@@ -234,6 +237,7 @@ define tomcat::instance (
         content => template('tomcat/server.xml.erb'),
         require => File["${instance_home}/tomcat"],
         notify  => Tomcat::Service[$name],
+        mode    => '0640',
     }
 
     file { "${instance_home}/tomcat/conf/context.xml":
@@ -243,5 +247,6 @@ define tomcat::instance (
         content => template('tomcat/context.xml.erb'),
         require => File["${instance_home}/tomcat"],
         notify  => Tomcat::Service[$name],
+        mode    => '0640',
     }
 }

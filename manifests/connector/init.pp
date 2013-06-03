@@ -15,6 +15,7 @@ define tomcat::connector::init (
         concat { "${tomcat::params::home}/${instance}/tomcat/conf/connectors.xml":
             owner   => $instance,
             group   => $instance,
+            mode    => '0640',
             require => File["${tomcat::params::home}/${instance}/tomcat/conf"],
         }
 

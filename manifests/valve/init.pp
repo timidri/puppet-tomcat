@@ -17,6 +17,7 @@ define tomcat::valve::init (
         concat { "${tomcat::params::home}/${instance}/tomcat/conf/engine-valves.xml":
             owner   => $instance,
             group   => $instance,
+            mode    => '0640',
             require => File["${tomcat::params::home}/${instance}/tomcat/conf"],
         }
 

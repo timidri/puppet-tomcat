@@ -17,6 +17,7 @@ define tomcat::listener::init (
         concat { "${tomcat::params::home}/${instance}/tomcat/conf/server-listeners.xml":
             owner   => $instance,
             group   => $instance,
+            mode    => '0640',
             require => File["${tomcat::params::home}/${instance}/tomcat/conf"],
         }
 

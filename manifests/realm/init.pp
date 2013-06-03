@@ -17,6 +17,7 @@ define tomcat::realm::init (
         concat { "${tomcat::params::home}/${instance}/tomcat/conf/engine-realms.xml":
             owner   => $instance,
             group   => $instance,
+            mode    => '0640',
             require => File["${tomcat::params::home}/${instance}/tomcat/conf"],
         }
 
