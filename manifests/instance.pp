@@ -143,9 +143,10 @@ define tomcat::instance (
         notify => Tomcat::Service[$name],
     }
 
-    file { "${instance_home}/tomcat/bin/catalina.sh":
-        ensure => link,
-        target => "/usr/share/tomcat${tomcat::version}/bin/catalina.sh",
+    # For using apparmor profiles per instance it needs a file instead of a symlink
+    exec { "copy ${instance_home}/tomcat/bin/catalina.sh":
+        command => "/bin/cp /usr/share/tomcat${tomcat::version}/bin/catalina.sh ${instance_home}/tomcat/bin/catalina.sh",
+        creates => "${instance_home}/tomcat/bin/catalina.sh",
         notify => Tomcat::Service[$name],
     }
 
