@@ -40,6 +40,7 @@ define tomcat::instance (
     $shutdown_port     = 8005,
     $apr_enabled       = true,
     $jmx_enabled       = false,
+    $jmx_ip            = '127.0.0.1',
     $jmx_port          = 8050,
     $jmx_ssl           = false,
     $jmx_authenticate  = false,
