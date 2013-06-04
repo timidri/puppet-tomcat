@@ -39,6 +39,10 @@
 define tomcat::instance (
     $shutdown_port     = 8005,
     $apr_enabled       = true,
+    $jmx_enabled       = false,
+    $jmx_port          = 8050,
+    $jmx_ssl           = false,
+    $jmx_authenticate  = false,
     $max_heap          = '1024m',
     $min_heap          = '1024m',
     $min_perm          = '384m',
@@ -102,6 +106,10 @@ define tomcat::instance (
                 }
                 ],
         }
+    }
+
+    if ($jmx_enabled and $jmx_authenticate) {
+        tomcat::jmx::init { $name: }
     }
 
     tomcat::listener { "${name}:org.apache.catalina.core.JasperListener":
@@ -212,7 +220,8 @@ define tomcat::instance (
     file { "${instance_home}/tomcat/bin/setenv.sh":
         content => template('tomcat/setenv.sh.erb'),
         notify  => Tomcat::Service[$name],
-        mode    => '0640',
+        owner   => $name,
+        mode    => '0740',
     }
 
     user { $name:

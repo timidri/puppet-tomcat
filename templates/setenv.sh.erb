@@ -1,1 +1,4 @@
 export CATALINA_OPTS="$CATALINA_OPTS -Xmx<%= max_heap %> -Xms<%= min_heap %> -XX:PermSize=<%= min_perm %> -XX:MaxPermSize=<%= max_perm %>"
+<% if jmx_enabled %>
+export CATALINA_OPTS="$CATALINA_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=<%= jmx_port %> -Dcom.sun.management.jmxremote.ssl=<%= jmx_ssl %> -Dcom.sun.management.jmxremote.authenticate=<%= jmx_authenticate %>"
+<%- end %>
