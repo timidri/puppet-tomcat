@@ -155,7 +155,8 @@ define tomcat::instance (
     exec { "copy ${instance_home}/tomcat/bin/catalina.sh":
         command => "/bin/cp /usr/share/tomcat${tomcat::version}/bin/catalina.sh ${instance_home}/tomcat/bin/catalina.sh",
         creates => "${instance_home}/tomcat/bin/catalina.sh",
-        notify => Tomcat::Service[$name],
+        require => File["${instance_home}/tomcat/bin"],
+        notify  => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/digest.sh":
@@ -176,10 +177,12 @@ define tomcat::instance (
         notify => Tomcat::Service[$name],
     }
 
-    file { "${instance_home}/tomcat/bin/startup.sh":
-        ensure => link,
-        target => "/usr/share/tomcat${tomcat::version}/bin/startup.sh",
-        notify => Tomcat::Service[$name],
+    # For using apparmor profiles per instance it needs a file instead of a symlink
+    exec { "copy ${instance_home}/tomcat/bin/startup.sh":
+        command => "/bin/cp /usr/share/tomcat${tomcat::version}/bin/startup.sh ${instance_home}/tomcat/bin/startup.sh",
+        creates => "${instance_home}/tomcat/bin/startup.sh",
+        require => File["${instance_home}/tomcat/bin"],
+        notify  => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/tool-wrapper.sh":
