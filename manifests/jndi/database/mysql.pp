@@ -20,7 +20,6 @@
 # [*initial_size*] Initial pool size (defaults to 4).
 # [*max_active*] Max active connections (defaults to 8).
 # [*max_idle*] Minimal active connections (defaults to 4).
-# [*factory*] Connection factory to use (defaults to 'org.apache.tomcat.jdbc.pool.DataSourceFactory'),
 # [*jmx_enabled*] Enable jmx for the connection pool (defaults to true),
 # [*validation_query*] The query to use to check if a connection is still valid (defaults to 'SELECT 1'),
 #
@@ -65,7 +64,6 @@ define tomcat::jndi::database::mysql (
     $initial_size       = '10',
     $max_active         = '100',
     $max_idle           = '10',
-    $factory            = 'org.apache.tomcat.jdbc.pool.DataSourceFactory',
     $jmx_enabled        = true,
     $auto_reconnect     = true,
     $validation_query   = 'SELECT 1',
@@ -82,7 +80,6 @@ define tomcat::jndi::database::mysql (
             {'initialSize'=> $initial_size },
             {'maxActive' => $max_active },
             {'maxIdle' => $max_idle },
-            {'factory' => $factory },
             {'jmxEnabled' => $jmx_enabled },
             {'validationQuery' => $validation_query },
         ],
@@ -96,15 +93,5 @@ define tomcat::jndi::database::mysql (
 	        artifactid => 'mysql-connector-java',
 	        version    => '5.1.24',
 	    }
-    }
-
-    if ('org.apache.tomcat.jdbc' in $factory and !defined(Tomcat::Lib::Maven["${instance}:tomcat-jdbc-7.0.19"])) {
-        tomcat::lib::maven { "${instance}:tomcat-jdbc-7.0.19":
-            lib        => 'tomcat-jdbc-7.0.19.jar',
-            instance   => $instance,
-            groupid    => 'org.apache.tomcat',
-            artifactid => 'tomcat-jdbc',
-            version    => '7.0.19',
-        }
     }
 }
