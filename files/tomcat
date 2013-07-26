@@ -73,18 +73,24 @@ start() {
 stop() {
         PID=`ps ax | grep "org.apache.catalina.startup.Bootstrap start" |grep sites/$tomcat/tomcat | awk '{printf $1}'`
         if [ "$PID" != "" ]; then
-		info "Stopping Tomcat [$tomcat] @ PID: $PID "
-                su - $tomcat -c "/opt/tomcat/sites/$tomcat/tomcat/bin/shutdown.sh > /dev/null 2>&1" 
-                sleep $timeout
+		info "Stopping Tomcat with timeout ${timeout}s [$tomcat] @ PID: $PID "
+                su - $tomcat -c "/opt/tomcat/sites/$tomcat/tomcat/bin/shutdown.sh 2>&1 | grep 'No shutdown port configured.' > /dev/null"
+		if [[ $? -eq 0 ]] ;  then
+			info "No shutdown port configured for [$tomcat]"
+		else
+                	sleep $timeout
+		fi
                 PID=`ps ax | grep "org.apache.catalina.startup.Bootstrap start" |grep sites/$tomcat/tomcat | awk '{printf $1}'`
                 if [ "$PID" != "" ]; then
-                        warn "The server doesn't seem to stop, killing it"
+                        info "The server doesn't seem to stop fast enough or has no shutdown port, killing it"
                         kill $PID
-                        sleep 2
+                        sleep $timeout
                         PID=`ps ax | grep "org.apache.catalina.startup.Bootstrap start" |grep sites/$tomcat/tomcat | awk '{printf $1}'`
                         if [ "$PID" != "" ]; then
                                 warn "Kill -9 Tomcat [$tomcat] @ $PID"
                                 kill -9 $PID
+			else
+				info "Regular kill worked for Tomcat [$tomcat]"
                         fi
                 fi
 		info "Tomcat [$tomcat] stopped"
@@ -139,7 +145,7 @@ case $1 in
 	fi
 ;;
     stop)
-    timeout="5"
+    timeout="30"
         if [[  "${2}" =~ "--instance=" ]]; then
                 tomcat="${2}"
                 tomcat="${tomcat##--instance=}"
