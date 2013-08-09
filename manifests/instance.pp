@@ -53,8 +53,10 @@ define tomcat::instance (
     $auto_deploy       = true,
     $deploy_on_startup = true,
     $ensure            = present,) {
-    include tomcat
-
+        
+    alert($tomcat::home)
+    alert($tomcat::installpath)
+    
     $instance_home = "${tomcat::params::home}/${name}"
 
     tomcat::service { $name:
@@ -124,7 +126,7 @@ define tomcat::instance (
         class_name => 'org.apache.catalina.core.JreMemoryLeakPreventionListener',
     }
 
-    if ($tomcat::version < 7) {
+    if ($tomcat::package_version < 7) {
         tomcat::listener { "${name}:org.apache.catalina.mbeans.ServerLifecycleListener":
             instance   => $name,
             class_name => 'org.apache.catalina.mbeans.ServerLifecycleListener',
@@ -149,14 +151,14 @@ define tomcat::instance (
 
     file { "${instance_home}/tomcat/bin/bootstrap.jar":
         ensure => link,
-        target => "/usr/share/tomcat${tomcat::version}/bin/bootstrap.jar",
+        target => "${tomcat::installpath}/bin/bootstrap.jar",
         notify => Tomcat::Service[$name],
     }
 
     # For using apparmor profiles per instance it needs a file instead of a symlink
     file { "${instance_home}/tomcat/bin/catalina.sh":
         ensure => file,
-        source => "/usr/share/tomcat${tomcat::version}/bin/catalina.sh",
+        source => "${tomcat::installpath}/bin/catalina.sh",
         owner  => 'root',
         group  => 'root',
         mode   => '755',
@@ -165,19 +167,19 @@ define tomcat::instance (
 
     file { "${instance_home}/tomcat/bin/digest.sh":
         ensure => link,
-        target => "/usr/share/tomcat${tomcat::version}/bin/digest.sh",
+        target => "${tomcat::installpath}/bin/digest.sh",
         notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/setclasspath.sh":
         ensure => link,
-        target => "/usr/share/tomcat${tomcat::version}/bin/setclasspath.sh",
+        target => "${tomcat::installpath}/bin/setclasspath.sh",
         notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/shutdown.sh":
         ensure => file, # file instead of a link so it uses the instance catalina.sh
-        source => "/usr/share/tomcat${tomcat::version}/bin/shutdown.sh",
+        source => "${tomcat::installpath}/bin/shutdown.sh",
         owner  => 'root',
         group  => 'root',
         mode   => '755',
@@ -186,7 +188,7 @@ define tomcat::instance (
 
     file { "${instance_home}/tomcat/bin/startup.sh":
         ensure => file, # file instead of a link so it uses the instance catalina.sh
-        source => "/usr/share/tomcat${tomcat::version}/bin/startup.sh",
+        source => "${tomcat::installpath}/bin/startup.sh",
         owner  => 'root',
         group  => 'root',
         mode   => '755',
@@ -195,13 +197,13 @@ define tomcat::instance (
 
     file { "${instance_home}/tomcat/bin/tool-wrapper.sh":
         ensure => link,
-        target => "/usr/share/tomcat${tomcat::version}/bin/tool-wrapper.sh",
+        target => "${tomcat::installpath}/bin/tool-wrapper.sh",
         notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/bin/version.sh":
         ensure => link,
-        target => "/usr/share/tomcat${tomcat::version}/bin/version.sh",
+        target => "${tomcat::installpath}/bin/version.sh",
         notify => Tomcat::Service[$name],
     }
 
@@ -213,19 +215,19 @@ define tomcat::instance (
 
     file { "${instance_home}/tomcat/conf/logging.properties":
         ensure => link,
-        target => "/etc/tomcat${tomcat::version}/logging.properties",
+        target => "${tomcat::installpath}/conf/logging.properties",
         notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/conf/policy.d":
         ensure => link,
-        target => "/etc/tomcat${tomcat::version}/policy.d",
+        target => "${tomcat::installpath}/conf/policy.d",
         notify => Tomcat::Service[$name],
     }
 
     file { "${instance_home}/tomcat/conf/web.xml":
         ensure => link,
-        target => "/etc/tomcat${tomcat::version}/web.xml",
+        target => "${tomcat::installpath}/conf/web.xml",
         notify => Tomcat::Service[$name],
     }
 

@@ -20,12 +20,36 @@
 #
 # Copyright 2013 Proteon.
 #
-class tomcat ($version = $tomcat::params::version) inherits tomcat::params {
+class tomcat (
+    $package_name    = $tomcat::params::package_name,
+    $root            = $tomcat::params::root,
+    $home            = $tomcat::params::home,
+    $installmethod   = $tomcat::params::installmethod,
+    $installroot     = $tomcat::params::installroot,
+    $package_version = $tomcat::params::package_version,
+    $version         = $tomcat::params::version,
+    $packages        = $tomcat::params::support_packages,
+) inherits tomcat::params {
+    
+    $installpath     = $installmethod ? {
+      'package'   => "${installroot}/${package_name}",
+      'download'  => "${installroot}/${version}",
+      default     => fail("installmethod `${installmethod}' not supported, should be `package' or `download'")
+      }
+    
+    alert($installpath)
     
     include concat::setup
 
-    package { ["tomcat${version}", 'libtcnative-1', 'liblog4j1.2-java', 'libcommons-logging-java']: ensure => held, }
-
+    class { "tomcat::install::${installmethod}":
+    }
+            
+    if $packages != undef {  
+        package { $packages:
+            ensure => installed,
+        }
+    }
+    
     file { [$tomcat::params::root, $tomcat::params::home, '/etc/tomcat.d/',]:
         ensure => directory,
         owner  => 'root',
@@ -46,16 +70,16 @@ class tomcat ($version = $tomcat::params::version) inherits tomcat::params {
         group  => 'root',
     }
 
-    service { "tomcat${version}":
+    service { $package_name:
         ensure  => stopped,
-        pattern => "/var/lib/tomcat${version}",
+        pattern => 'java.*tomcat.*bootstrap',
         enable  => false,
-        require => Package["tomcat${version}"],
+        require => Class["tomcat::install::${installmethod}"],
     }
 
     profile_d::script { 'CATALINA_HOME.sh':
         ensure  => present,
-        content => "export CATALINA_HOME=/usr/share/tomcat${version}",
+        content => "export CATALINA_HOME=${installpath}",
     }
 
     profile_d::script { 'CATALINA_BASE.sh':
